@@ -1,0 +1,103 @@
+/* These are Tailwind CSS directives - they're valid even if your IDE shows warnings */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom light black color palette */
+:root {
+  --light-black-950: #0a0a0a;
+  --light-black-900: #121212;
+  --light-black-800: #181818;
+  --light-black-700: #1e1e1e;
+  --light-black-600: #242424;
+  --light-black-500: #2a2a2a;
+  --light-black-400: #3a3a3a;
+}
+
+/* Tailwind layer directive */
+@layer base {
+  body {
+    /* @apply is a Tailwind directive to apply utility classes */
+    @apply antialiased;
+    background-color: var(--light-black-950);
+  }
+}
+
+::selection {
+  @apply bg-emerald-400/20 text-emerald-400;
+}
+
+.greeting-container {
+  @apply inline-flex min-w-[120px];
+}
+
+.greeting-text {
+  @apply transition-all duration-500;
+}
+
+.comma {
+  @apply transition-all duration-500;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--light-black-900);
+}
+
+/* Loading screen styles */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light-black-950);
+  z-index: 9999;
+}
+
+.loading-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+.loading-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.loading-progress {
+  width: 200px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.loading-progress-bar {
+  height: 100%;
+  background-color: #10b981;
+  transition: width 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-emerald-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-emerald-500;
+}
