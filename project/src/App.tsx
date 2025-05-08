@@ -74,6 +74,27 @@ const loadingScreenStyles = `
     animation: glow 2s ease-in-out infinite alternate;
   }
 
+  .audio-prompt {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 3;
+    animation: fadeInOut 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes fadeInOut {
+    from {
+      opacity: 0.5;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   @keyframes glow {
     from {
       text-shadow: 0 0 10px rgba(16, 185, 129, 0.5),
@@ -168,6 +189,21 @@ const glitchStyles = `
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [showName, setShowName] = useState(false);
+  const [audioPromptVisible, setAudioPromptVisible] = useState(true);
+  
+  // Function to attempt playing the background music
+  const playBackgroundMusic = () => {
+    const audioElements = document.querySelectorAll('audio');
+    if (audioElements.length > 0) {
+      audioElements.forEach(audio => {
+        audio.muted = false;
+        audio.volume = 0.3;
+        audio.play().catch(() => {
+          console.log('Could not autoplay audio from loading screen');
+        });
+      });
+    }
+  };
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -187,14 +223,23 @@ const LoadingScreen = () => {
       }, 30); // Update progress every 300ms
     }, 13000); // 13 seconds
 
+    // Hide the audio prompt after 8 seconds
+    const hideAudioPromptTimer = setTimeout(() => {
+      setAudioPromptVisible(false);
+    }, 8000);
+
     return () => {
       if (interval) clearInterval(interval);
       clearTimeout(nameAndProgressTimer);
+      clearTimeout(hideAudioPromptTimer);
     };
   }, []);
 
   return (
-    <div className="loading-screen">
+    <div 
+      className="loading-screen"
+      onClick={playBackgroundMusic}
+    >
       <video 
         className="loading-video" 
         autoPlay 
@@ -204,6 +249,11 @@ const LoadingScreen = () => {
       >
         <source src="/videos/loading-animation.mp4" type="video/mp4" />
       </video>
+      {audioPromptVisible && (
+        <div className="audio-prompt">
+          <p className="text-lg">Click anywhere to enable audio</p>
+        </div>
+      )}
       <div className="loading-content">
         {showName && (
           <>
@@ -353,7 +403,7 @@ const Home = () => {
                 <span className="greeting-text">{greeting}</span>
                 <span className="comma">,&nbsp;</span>
               </div>
-              I'm <span className="text-emerald-500 hover:text-emerald-400 transition-colors duration-300 cursor-pointer">Farhan</span>
+              I'm <span className="text-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer">Farhan</span>
             </h1>
             
             <div className="flex gap-2 justify-center mt-4">
@@ -381,11 +431,10 @@ const Home = () => {
           
           <div className="space-y-6 max-w-3xl mx-auto text-center">
             <p className="text-lg text-white leading-relaxed">
-              A passionate backend developer with a knack for building scalable systems and solving complex problems. With years of experience in cloud architecture and distributed systems, I've helped companies transform their infrastructure and optimize their applications.
-            </p>
-            <p className="text-lg text-white leading-relaxed">
-              As an AWS Community Builder, I love sharing knowledge and helping others grow in their cloud journey. 
-              When I'm not coding, you'll find me contributing to open source projects or writing technical blogs.
+            I am a backend developer who enjoys building and learning how things work behind the scenes. <br></br>
+            As an AWS Community Builder, I am currently focused on deepening my skills in cloud-native development and sharing what I learn as part of the AWS Community Builders program. In my free time, I contribute to open source, write technical blogs, and experiment with new tools and ideas. I am continuously exploring ways to improve backend performance and reliability.
+             {/* <p className="text-lg text-white leading-relaxed"> */}
+               
             </p>
             {/* Video section commented out for later use */}
             {/* <div className="mt-8 bg-gray-800 p-4 rounded-lg shadow-lg shadow-emerald-500/10">
@@ -493,10 +542,10 @@ const Skills = () => {
       'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Helm', 
       'CI/CD', 'Monitoring'
     ],
-    'Databases': [
-      'PostgreSQL', 'DynamoDB', 'Redis',
-      'Database Design', 
-    ],
+    // 'Databases': [
+    //   'PostgreSQL', 'DynamoDB', 'Redis',
+    //   'Database Design', 
+    // ],
     'System Design': [
       'Event Driven', 'Distributed Systems', 'API Design',
       'Microservices Architecture', 
@@ -600,7 +649,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    alert('Thanks for your message! I will get back to you soon.');
+    alert('Thanks for your message! I will get in touch with you soon.');
     setFormData({
       name: '',
       email: '',
@@ -617,7 +666,7 @@ const Contact = () => {
         <div className="p-8 rounded-lg space-y-6 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
           <p className="text-white">
             Whether you want to discuss a project, ask about tech, 
-            or just want to say hi, I'm always open for a chat!
+            or just want to say hi, I am always open for a chat!
           </p>
           <div className="flex flex-col gap-4">
             <a 
@@ -736,13 +785,12 @@ const Contact = () => {
   );
 };
 
-// Footer component with copyright and humor
 const Footer = () => {
   return (
     <footer className="py-6 mt-12 border-t" style={{ borderColor: 'var(--light-black-800)' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-white">© 2025 Farhan Ahmed. All rights reserved.</p>
+          <p className="text-sm text-white">&copy; 2025 Farhan Ahmed. All rights reserved.</p>
           <p className="text-sm mt-2 md:mt-0 italic text-white">
             "I'm not crazy, my mother had me tested. Just like I test my code!"</p>
         </div>
@@ -751,13 +799,7 @@ const Footer = () => {
   );
 };
 
-// Background settings component
-interface BackgroundSettingsProps {
-  currentBg: string | null;
-  onChange: (bg: string) => void;
-}
-
-const BackgroundSettings = ({ currentBg, onChange }: BackgroundSettingsProps) => {
+const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null, onChange: (bg: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (
@@ -765,7 +807,7 @@ const BackgroundSettings = ({ currentBg, onChange }: BackgroundSettingsProps) =>
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 rounded-full hover:text-emerald-500 transition-colors"
-        style={{ backgroundColor: 'rgba(24, 24, 24, 0.8)', color: 'var(--light-black-400)' }}
+        style={{ backgroundColor: 'var(--light-black-800)' }}
       >
         <Settings className="w-5 h-5" />
       </button>
@@ -802,6 +844,8 @@ function App() {
   const [backgroundOption, setBackgroundOption] = useState<string>('1');
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [showName, setShowName] = useState(false);
+  const [progress, setProgress] = useState(0);
   
   // Add styles to the document
   useEffect(() => {
@@ -818,77 +862,133 @@ function App() {
     };
   }, []);
 
-  // Initialize audio
+  // Set up the loading screen progress and name display
   useEffect(() => {
-    const audio = new Audio('/audio/Vault-1.mp3');
-    audio.loop = true;
-    audio.volume = 0.3;
+    let interval: NodeJS.Timeout | null = null;
 
-    // Attempt to play the audio immediately
-    const playAudio = async () => {
-      try {
-        await audio.play();
-        console.log('Audio autoplay succeeded');
-      } catch (err) {
-        console.error('Audio autoplay failed:', err);
-
-        // Fallback: Mute the audio and play it
-        audio.muted = true;
-        try {
-          await audio.play();
-          console.log('Audio autoplay succeeded with muted fallback');
-          audio.muted = false; // Unmute after playback starts
-        } catch (fallbackErr) {
-          console.error('Audio playback failed even with muted fallback:', fallbackErr);
-        }
-      }
-    };
-
-    playAudio();
+    // Show name and start progress bar at the 13th second
+    const nameAndProgressTimer = setTimeout(() => {
+      setShowName(true);
+      setProgress(2); // Start progress bar animation
+      interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            if (interval) clearInterval(interval);
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 30); // Update progress every 30ms
+    }, 13000); // 13 seconds
 
     return () => {
-      audio.pause();
-      audio.src = '';
+      if (interval) clearInterval(interval);
+      clearTimeout(nameAndProgressTimer);
     };
   }, []);
 
-  // Handle mute/unmute
+  // Initialize audio with super aggressive approach
   useEffect(() => {
-    if (audioRef.current) {
-      if (isMuted) {
-        audioRef.current.volume = 0;
-      } else {
-        audioRef.current.volume = 0.3;
+    // Create audio element in DOM to better handle autoplay
+    const audioElement = document.createElement('audio');
+    audioElement.src = '/audio/Vault-1.mp3';
+    audioElement.loop = true;
+    audioElement.volume = 0.3;
+    audioElement.id = 'background-music';
+    audioElement.preload = 'auto';
+    
+    // Store in ref for later control
+    audioRef.current = audioElement;
+    
+    // Add to DOM for better browser support
+    document.body.appendChild(audioElement);
+    
+    // Try multiple play attempts
+    const tryPlay = () => {
+      if (audioElement.paused) {
+        audioElement.play().catch(() => {});
       }
+    };
+    
+    // Attempt initial play
+    tryPlay();
+    
+    // Set up various timers to try playing at different times
+    const timers = [
+      setTimeout(tryPlay, 500),   // Quick initial retry
+      setTimeout(tryPlay, 2000),  // After 2 seconds
+      setTimeout(tryPlay, 5000),  // After 5 seconds
+      setTimeout(tryPlay, 10000), // After 10 seconds
+      setTimeout(tryPlay, 14000), // Just before loading screen ends
+      setTimeout(tryPlay, 15500), // Just after loading screen ends
+      setTimeout(tryPlay, 16500)  // 1.5 seconds after loading screen ends
+    ];
+    
+    // Set up a variety of events that might trigger audio playback
+    const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
+    
+    const playOnUserAction = () => {
+      if (audioElement.paused) {
+        audioElement.play().catch(() => {});
+      }
+    };
+    
+    // Add all listeners
+    events.forEach(evt => {
+      window.addEventListener(evt, playOnUserAction);
+    });
+    
+    // Cleanup function
+    return () => {
+      // Clear all timers
+      timers.forEach(timer => clearTimeout(timer));
+      
+      // Remove all event listeners
+      events.forEach(evt => {
+        window.removeEventListener(evt, playOnUserAction);
+      });
+      
+      // Remove audio element from DOM
+      if (document.body.contains(audioElement)) {
+        document.body.removeChild(audioElement);
+      }
+    };
+  }, []);
+
+  // Handle mute/unmute 
+  useEffect(() => {
+    if (!audioRef.current) return;
+    
+    if (isMuted) {
+      audioRef.current.volume = 0;
+      audioRef.current.pause();
+    } else {
+      audioRef.current.volume = 0.3;
+      
+      // Try to play with a small delay to ensure UI has updated
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(() => {});
+        }
+      }, 100);
     }
   }, [isMuted]);
 
-  // Play audio when loading completes
+  // When loading ends, try to play audio again
   useEffect(() => {
     if (!loading && audioRef.current) {
-      // Attempt to play as soon as loading is complete
-      audioRef.current.play().catch(err => {
-        console.error('Audio playback failed:', err);
-        
-        // Set up event listener for user interaction if autoplay fails
-        const handleUserInteraction = () => {
-          if (!audioRef.current) return;
-          if (!audioRef.current.paused) return;
-          
-          audioRef.current.play().catch(err => console.error('Audio playback failed after interaction:', err));
-          document.removeEventListener('click', handleUserInteraction);
-          document.removeEventListener('touchstart', handleUserInteraction);
-        };
-        
-        document.addEventListener('click', handleUserInteraction);
-        document.addEventListener('touchstart', handleUserInteraction);
-      });
+      // Try playing the audio when we exit the loading screen
+      setTimeout(() => {
+        if (audioRef.current && audioRef.current.paused && !isMuted) {
+          audioRef.current.play().catch(() => {});
+        }
+      }, 200);
     }
-  }, [loading]);
+  }, [loading, isMuted]);
 
   // Set loading timeout - exactly 15 seconds
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 15000); // Exactly 15 seconds
+    const timer = setTimeout(() => setLoading(false), 15000);
     
     return () => {
       clearTimeout(timer);
@@ -896,7 +996,44 @@ function App() {
   }, []);
 
   if (loading) {
-    return <LoadingScreen />;
+    return (
+      <div 
+        className="loading-screen"
+        onClick={() => {
+          if (audioRef.current && audioRef.current.paused) {
+            audioRef.current.play().catch(() => {});
+          }
+        }}
+      >
+        <video 
+          className="loading-video" 
+          autoPlay 
+          muted 
+          loop
+          playsInline
+        >
+          <source src="/videos/loading-animation.mp4" type="video/mp4" />
+        </video>
+        <div className="audio-prompt">
+          <p className="text-lg">Click anywhere to enable audio</p>
+        </div>
+        <div className="loading-content">
+          {showName && (
+            <>
+              <h1 className="text-4xl font-bold text-emerald-500 mb-4 cinematic-title">FARHAN AHMED</h1>
+              <p className="text-xl text-white mb-4 cinematic-subtitle">Backend Dev | AWS Community Builder | Open Source Contributor</p>
+              <div className="loading-progress">
+                <div 
+                  className="loading-progress-bar"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </>
+          )}
+        </div>
+        <div className="scanlines"></div>
+      </div>
+    );
   }
 
   return (
