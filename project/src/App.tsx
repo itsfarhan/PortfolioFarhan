@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Terminal, Github, Linkedin, Mail, Coffee, Code, Home as HomeIcon, Briefcase, Volume2, VolumeX, Settings } from 'lucide-react';
+import { Terminal, Github, Linkedin, Mail, Coffee, PhoneCall, CircleDollarSign, Code, Home as HomeIcon, Briefcase, Volume2, VolumeX, Settings } from 'lucide-react';
 
 // Audio player component - removed as we're using inline audio control
 
@@ -637,58 +637,76 @@ const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    reason: 'Select Option',
+    reason: '',
     message: ''
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thanks for your message! I will get in touch with you soon.');
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      reason: 'Select Option',
-      message: ''
-    });
   };
 
   return (
     <div className="min-h-screen pb-32">
       <h2 className="text-3xl font-bold text-white mb-12 text-center">Get In Touch</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div className="p-8 rounded-lg space-y-6 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
+        {/* Contact Info Panel */}
+        <div
+          className="p-8 rounded-lg space-y-6 glass-effect"
+          style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}
+        >
           <p className="text-white">
-            Whether you want to discuss a project, ask about tech, 
-            or just want to say hi, I am always open for a chat!
+            Whether you want to discuss a project, ask about tech, or just want to say hi,
+            I am always open for a chat!
           </p>
           <div className="flex flex-col gap-4">
-            <a 
-              href="mailto:contact@example.com" 
+            <a
+              href="mailto:hello@farhanahmed.pro"
               className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors"
             >
               <Mail className="w-5 h-5" />
-              contact@example.com
+              hello@farhanahmed.pro
             </a>
-            <a 
-              href="https://calendly.com" 
-              target="_blank" 
+            <a
+              href="https://calendly.com"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors"
             >
               <Coffee className="w-5 h-5" />
               Schedule a Coffee Chat
             </a>
+            <a
+              href="https://ko-fi.com/itsfarhan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors"
+            >
+              <CircleDollarSign className="w-5 h-5" />
+              Buy a coffee for Farhan
+            </a>
           </div>
         </div>
-        
-        <form onSubmit={handleSubmit} className="p-8 rounded-lg space-y-6" style={{ backgroundColor: 'var(--light-black-800)' }}>
+
+        {/* Unified Form with FormSubmit.co */}
+        <form
+          action="https://formsubmit.co/5bdb03a51a3b91312a323dcf167753bd"
+          method="POST"
+          className="p-8 rounded-lg space-y-6"
+          style={{ backgroundColor: 'var(--light-black-800)' }}
+        >
+          {/* Honeypot field */}
+          <input type="text" name="_honey" style={{ display: 'none' }} />
+
+          {/* Disable default captcha */}
+          <input type="hidden" name="_captcha" value="false" />
+
+          {/* Redirect to thank you page */}
+          <input type="hidden" name="_next" value="https://farhanahmed.pro/thank-you.html?ref=contact" />
+
+          {/* Pass formData fields */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1 text-white">
               Name
@@ -701,10 +719,14 @@ const Contact = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ backgroundColor: 'var(--light-black-700)', borderColor: 'var(--light-black-600)', borderWidth: '1px', borderStyle: 'solid' }}
+              style={{
+                backgroundColor: 'var(--light-black-700)',
+                borderColor: 'var(--light-black-600)',
+                borderWidth: '1px'
+              }}
             />
           </div>
-          
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium mb-1 text-white">
               Email
@@ -717,10 +739,14 @@ const Contact = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ backgroundColor: 'var(--light-black-700)', borderColor: 'var(--light-black-600)', borderWidth: '1px', borderStyle: 'solid' }}
+              style={{
+                backgroundColor: 'var(--light-black-700)',
+                borderColor: 'var(--light-black-600)',
+                borderWidth: '1px'
+              }}
             />
           </div>
-          
+
           <div>
             <label htmlFor="reason" className="block text-sm font-medium mb-1 text-white">
               Reason for Contact
@@ -730,17 +756,25 @@ const Contact = () => {
               name="reason"
               value={formData.reason}
               onChange={handleChange}
+              required
               className="w-full px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ backgroundColor: 'var(--light-black-700)', borderColor: 'var(--light-black-600)', borderWidth: '1px', borderStyle: 'solid' }}
+              style={{
+                backgroundColor: 'var(--light-black-700)',
+                borderColor: 'var(--light-black-600)',
+                borderWidth: '1px'
+              }}
             >
+              <option value="" disabled hidden>
+                Select an option
+              </option>
               <option value="Project Inquiry">Project Inquiry</option>
               <option value="Job Opportunity">Job Opportunity</option>
-              <option value="Consulting">Freelance</option>
+              <option value="Freelance">Freelance</option>
               <option value="Collaboration">Collaboration</option>
               <option value="Other">Other</option>
             </select>
           </div>
-          
+
           <div>
             <label htmlFor="subject" className="block text-sm font-medium mb-1 text-white">
               Subject
@@ -753,10 +787,14 @@ const Contact = () => {
               onChange={handleChange}
               required
               className="w-full px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ backgroundColor: 'var(--light-black-700)', borderColor: 'var(--light-black-600)', borderWidth: '1px', borderStyle: 'solid' }}
+              style={{
+                backgroundColor: 'var(--light-black-700)',
+                borderColor: 'var(--light-black-600)',
+                borderWidth: '1px'
+              }}
             />
           </div>
-          
+
           <div>
             <label htmlFor="message" className="block text-sm font-medium mb-1 text-white">
               Message
@@ -769,10 +807,14 @@ const Contact = () => {
               required
               rows={4}
               className="w-full px-4 py-2 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              style={{ backgroundColor: 'var(--light-black-700)', borderColor: 'var(--light-black-600)', borderWidth: '1px', borderStyle: 'solid' }}
+              style={{
+                backgroundColor: 'var(--light-black-700)',
+                borderColor: 'var(--light-black-600)',
+                borderWidth: '1px'
+              }}
             />
           </div>
-          
+
           <button
             type="submit"
             className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
