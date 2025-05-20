@@ -670,7 +670,7 @@ const Contact = () => {
               hello@farhanahmed.pro
             </a>
             <a
-              href="https://calendly.com"
+              href="https://calendly.com/hello-farhanahmed"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors"
@@ -704,7 +704,7 @@ const Contact = () => {
           <input type="hidden" name="_captcha" value="false" />
 
           {/* Redirect to thank you page */}
-          <input type="hidden" name="_next" value="https://farhanahmed.pro/thank-you.html?ref=contact" />
+          <input type="hidden" name="_next" value="https://farhanahmed.pro/thankyou.html" />
 
           {/* Pass formData fields */}
           <div>
