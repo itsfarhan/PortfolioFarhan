@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { Terminal, Github, Linkedin, Mail, Coffee, PhoneCall, CircleDollarSign, Code, Home as HomeIcon, Briefcase, Volume2, VolumeX, Settings } from 'lucide-react';
 
 // Audio player component - removed as we're using inline audio control
@@ -190,7 +190,8 @@ const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [showName, setShowName] = useState(false);
   const [audioPromptVisible, setAudioPromptVisible] = useState(true);
-  
+  const navigate = useNavigate();
+
   // Function to attempt playing the background music
   const playBackgroundMusic = () => {
     const audioElements = document.querySelectorAll('audio');
@@ -205,6 +206,10 @@ const LoadingScreen = () => {
     }
   };
 
+  const handleSkip = () => {
+    navigate('/home');
+  };
+
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
 
@@ -216,11 +221,13 @@ const LoadingScreen = () => {
         setProgress(prev => {
           if (prev >= 100) {
             if (interval) clearInterval(interval);
+            // Auto-navigate to home when progress reaches 100%
+            navigate('/home');
             return 100;
           }
           return prev + 2;
         });
-      }, 30); // Update progress every 300ms
+      }, 30); // Update progress every 30ms
     }, 13000); // 13 seconds
 
     // Hide the audio prompt after 8 seconds
@@ -233,17 +240,17 @@ const LoadingScreen = () => {
       clearTimeout(nameAndProgressTimer);
       clearTimeout(hideAudioPromptTimer);
     };
-  }, []);
+  }, [navigate]);
 
   return (
-    <div 
+    <div
       className="loading-screen"
       onClick={playBackgroundMusic}
     >
-      <video 
-        className="loading-video" 
-        autoPlay 
-        muted 
+      <video
+        className="loading-video"
+        autoPlay
+        muted
         loop
         playsInline
       >
@@ -260,7 +267,7 @@ const LoadingScreen = () => {
             <h1 className="text-4xl font-bold text-emerald-500 mb-4 cinematic-title">FARHAN AHMED</h1>
             <p className="text-xl text-white mb-4 cinematic-subtitle">Backend Dev | AWS Community Builder | Open Source Contributor</p>
             <div className="loading-progress">
-              <div 
+              <div
                 className="loading-progress-bar"
                 style={{ width: `${progress}%` }}
               />
@@ -268,6 +275,12 @@ const LoadingScreen = () => {
           </>
         )}
       </div>
+      <button
+        className="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors z-50"
+        onClick={handleSkip}
+      >
+        Skip
+      </button>
       <div className="scanlines"></div>
     </div>
   );
@@ -289,27 +302,27 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
-  
+
   const handleNavigation = (path: string) => {
     navigate(path);
   };
-  
+
   return (
     <nav className={`fixed bottom-4 left-1/2 -translate-x-1/2 backdrop-blur-md shadow-xl shadow-emerald-500/10 px-5 py-2 rounded-2xl transition-transform duration-300 ${isVisible ? 'translate-y-0' : 'translate-y-32'}`} style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)' }}>
       <ul className="flex gap-6">
         <li>
-          <button 
-            onClick={() => handleNavigation('/')} 
+          <button
+            onClick={() => handleNavigation('/home')}
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
-            style={{ color: location.pathname === '/' ? '#10b981' : 'white' }}
+            style={{ color: location.pathname === '/home' ? '#10b981' : 'white' }}
           >
             <HomeIcon className="w-5 h-5" />
             <span className="text-xs">Home</span>
           </button>
         </li>
         <li>
-          <button 
-            onClick={() => handleNavigation('/experience')} 
+          <button
+            onClick={() => handleNavigation('/experience')}
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
             style={{ color: location.pathname === '/experience' ? '#10b981' : 'white' }}
           >
@@ -321,8 +334,8 @@ const Navigation = () => {
           </button>
         </li>
         <li>
-          <button 
-            onClick={() => handleNavigation('/projects')} 
+          <button
+            onClick={() => handleNavigation('/projects')}
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
             style={{ color: location.pathname === '/projects' ? '#10b981' : 'white' }}
           >
@@ -331,8 +344,8 @@ const Navigation = () => {
           </button>
         </li>
         <li>
-          <button 
-            onClick={() => handleNavigation('/skills')} 
+          <button
+            onClick={() => handleNavigation('/skills')}
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
             style={{ color: location.pathname === '/skills' ? '#10b981' : 'white' }}
           >
@@ -341,8 +354,8 @@ const Navigation = () => {
           </button>
         </li>
         <li>
-          <button 
-            onClick={() => handleNavigation('/contact')} 
+          <button
+            onClick={() => handleNavigation('/contact')}
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
             style={{ color: location.pathname === '/contact' ? '#10b981' : 'white' }}
           >
@@ -361,15 +374,15 @@ const Home = () => {
   const [greeting, setGreeting] = useState("Hello");
   const [isHovered, setIsHovered] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
-  
+
   const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "こんにちは", "안녕하세요", "नमस्ते", "السلام عليكم"];
-  
+
   // Update local time every second
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
-    
+
     return () => clearInterval(timer);
   }, []);
 
@@ -390,13 +403,13 @@ const Home = () => {
       <div className="space-y-16">
         <section className="min-h-[80vh] flex flex-col justify-center">
           <div className="flex items-center justify-center mb-6">
-            <Terminal 
-              className={`w-12 h-12 ${isHovered ? 'text-white' : 'text-emerald-500'} mr-4 transition-colors duration-300`} 
+            <Terminal
+              className={`w-12 h-12 ${isHovered ? 'text-white' : 'text-emerald-500'} mr-4 transition-colors duration-300`}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             />
           </div>
-          
+
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-2">
               <div className="greeting-container inline-block">
@@ -405,18 +418,18 @@ const Home = () => {
               </div>
               I'm <span className="text-emerald-500 hover:text-emerald-400 transition-colors cursor-pointer">Farhan</span>
             </h1>
-            
+
             <div className="flex gap-2 justify-center mt-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" 
-                 className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
+              <a href="https://github.com/itsfarhan" target="_blank" rel="noopener noreferrer"
+                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
                 <Github className="w-5 h-5" />
               </a>
               <a href="https://linkedin.com/in/itsfarhan" target="_blank" rel="noopener noreferrer"
-                 className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
+                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="mailto:contact@example.com"
-                 className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
+              <a href="mailto:hello@farhanahmed.pro"
+                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
                 <Mail className="w-5 h-5" />
               </a>
             </div>
@@ -428,13 +441,12 @@ const Home = () => {
               <div className="text-white text-sm">{currentTime}</div>
             </div>
           </div>
-          
+
           <div className="space-y-6 max-w-3xl mx-auto text-center">
             <p className="text-lg text-white leading-relaxed">
-            I am a backend developer who enjoys building and learning how things work behind the scenes. <br></br>
-            As an AWS Community Builder, I am currently focused on deepening my skills in cloud-native development and sharing what I learn as part of the AWS Community Builders program. In my free time, I contribute to open source, write technical blogs, and experiment with new tools and ideas. I am continuously exploring ways to improve backend performance and reliability.
-             {/* <p className="text-lg text-white leading-relaxed"> */}
-               
+              I am a backend developer who enjoys building and learning how things work behind the scenes. <br></br>
+              As an AWS Community Builder, I am currently focused on deepening my skills in cloud-native development and sharing what I learn as part of the AWS Community Builders program. In my free time, I contribute to open source, write technical blogs, and experiment with new tools and ideas. I am continuously exploring ways to improve backend performance and reliability.
+              {/* <p className="text-lg text-white leading-relaxed"> */}
             </p>
             {/* Video section commented out for later use */}
             {/* <div className="mt-8 bg-gray-800 p-4 rounded-lg shadow-lg shadow-emerald-500/10">
@@ -456,16 +468,16 @@ const Home = () => {
               </div>
             </div> */}
           </div>
-          
+
           <div className="flex flex-wrap gap-4 pt-8 justify-center">
-            <Link 
-              to="/projects" 
+            <Link
+              to="/projects"
               className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
             >
               View Projects
             </Link>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
             >
               Get In Touch
@@ -517,7 +529,7 @@ const Projects = () => (
               </span>
             ))}
           </div>
-          <a 
+          <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
@@ -535,11 +547,11 @@ const Projects = () => (
 const Skills = () => {
   const skillCategories = {
     'Backend Development': [
-      'Java', 'Spring Boot', 'Go', 'Gin', 'Fiber', 
+      'Java', 'Spring Boot', 'Go', 'Gin', 'Fiber',
       'REST APIs', 'SQL', 'YAML'
     ],
     'DevOps & Cloud': [
-      'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Helm', 
+      'AWS', 'Docker', 'Kubernetes', 'Terraform', 'Helm',
       'CI/CD', 'Monitoring'
     ],
     // 'Databases': [
@@ -548,7 +560,7 @@ const Skills = () => {
     // ],
     'System Design': [
       'Event Driven', 'Distributed Systems', 'API Design',
-      'Microservices Architecture', 
+      'Microservices Architecture',
     ]
   };
 
@@ -561,8 +573,8 @@ const Skills = () => {
             <h3 className="text-xl font-semibold text-white">{category}</h3>
             <div className="flex flex-wrap gap-3">
               {skills.map((skill) => (
-                <span 
-                  key={skill} 
+                <span
+                  key={skill}
                   className="px-4 py-2 rounded-lg hover:bg-opacity-70 hover:text-emerald-400 transition-all cursor-default text-white backdrop-blur-sm"
                   style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}
                 >
@@ -581,9 +593,9 @@ const Experience = () => {
   return (
     <div className="min-h-screen pb-32">
       <h2 className="text-3xl font-bold text-white mb-12 text-center">Experience</h2>
-      
-      {/* <div className="space-y-12">
-        <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
+
+      <div className="space-y-12">
+        {/* <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold text-white">Software Engineer</h3>
@@ -597,7 +609,7 @@ const Experience = () => {
             <li>Mentored junior developers and conducted code reviews</li>
           </ul>
         </div> */}
-        
+
         {/* <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
           <div className="flex justify-between items-start">
             <div>
@@ -628,7 +640,7 @@ const Experience = () => {
           </ul>
         </div>
       </div>
-    // </div>
+    </div>
   );
 };
 
@@ -843,23 +855,23 @@ const Footer = () => {
 
 const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null, onChange: (bg: string) => void }) => {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <div className="fixed top-4 right-4 z-50">
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 rounded-full hover:text-emerald-500 transition-colors"
         style={{ backgroundColor: 'var(--light-black-800)' }}
       >
         <Settings className="w-5 h-5" />
       </button>
-      
+
       {isOpen && (
         <div className="absolute right-0 mt-2 rounded-lg shadow-lg p-3 w-48 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
-          <h4 className="text-sm mb-2 text-white">Background</h4>
+          <h4 className="text-sm mb-2 text-white">Animated Backgrounds</h4>
           <div className="flex gap-2">
             {[1, 2, 3].map(num => (
-              <button 
+              <button
                 key={num}
                 onClick={() => {
                   onChange(num.toString());
@@ -867,9 +879,9 @@ const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null,
                 }}
                 className={`w-12 h-12 rounded-md overflow-hidden border-2 ${currentBg === num.toString() ? 'border-emerald-500' : 'border-transparent'}`}
               >
-                <img 
-                  src={`/images/dark-bg-${num}.jpg`} 
-                  alt={`Background ${num}`} 
+                <img
+                  src={`/images/animated-bg-${num}.gif`}
+                  alt={`Animated Background ${num}`}
                   className="w-full h-full object-cover"
                 />
               </button>
@@ -882,13 +894,11 @@ const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null,
 };
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  // Default to the first animated background
   const [backgroundOption, setBackgroundOption] = useState<string>('1');
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [showName, setShowName] = useState(false);
-  const [progress, setProgress] = useState(0);
-  
+
   // Add styles to the document
   useEffect(() => {
     // Add the loading screen and glass styles to the document
@@ -904,31 +914,6 @@ function App() {
     };
   }, []);
 
-  // Set up the loading screen progress and name display
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    // Show name and start progress bar at the 13th second
-    const nameAndProgressTimer = setTimeout(() => {
-      setShowName(true);
-      setProgress(2); // Start progress bar animation
-      interval = setInterval(() => {
-        setProgress(prev => {
-          if (prev >= 100) {
-            if (interval) clearInterval(interval);
-            return 100;
-          }
-          return prev + 2;
-        });
-      }, 30); // Update progress every 30ms
-    }, 13000); // 13 seconds
-
-    return () => {
-      if (interval) clearInterval(interval);
-      clearTimeout(nameAndProgressTimer);
-    };
-  }, []);
-
   // Initialize audio with super aggressive approach
   useEffect(() => {
     // Create audio element in DOM to better handle autoplay
@@ -938,23 +923,23 @@ function App() {
     audioElement.volume = 0.3;
     audioElement.id = 'background-music';
     audioElement.preload = 'auto';
-    
+
     // Store in ref for later control
     audioRef.current = audioElement;
-    
+
     // Add to DOM for better browser support
     document.body.appendChild(audioElement);
-    
+
     // Try multiple play attempts
     const tryPlay = () => {
       if (audioElement.paused) {
-        audioElement.play().catch(() => {});
+        audioElement.play().catch(() => { });
       }
     };
-    
+
     // Attempt initial play
     tryPlay();
-    
+
     // Set up various timers to try playing at different times
     const timers = [
       setTimeout(tryPlay, 500),   // Quick initial retry
@@ -965,31 +950,31 @@ function App() {
       setTimeout(tryPlay, 15500), // Just after loading screen ends
       setTimeout(tryPlay, 16500)  // 1.5 seconds after loading screen ends
     ];
-    
+
     // Set up a variety of events that might trigger audio playback
     const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
-    
+
     const playOnUserAction = () => {
       if (audioElement.paused) {
-        audioElement.play().catch(() => {});
+        audioElement.play().catch(() => { });
       }
     };
-    
+
     // Add all listeners
     events.forEach(evt => {
       window.addEventListener(evt, playOnUserAction);
     });
-    
+
     // Cleanup function
     return () => {
       // Clear all timers
       timers.forEach(timer => clearTimeout(timer));
-      
+
       // Remove all event listeners
       events.forEach(evt => {
         window.removeEventListener(evt, playOnUserAction);
       });
-      
+
       // Remove audio element from DOM
       if (document.body.contains(audioElement)) {
         document.body.removeChild(audioElement);
@@ -1000,132 +985,110 @@ function App() {
   // Handle mute/unmute 
   useEffect(() => {
     if (!audioRef.current) return;
-    
+
     if (isMuted) {
       audioRef.current.volume = 0;
       audioRef.current.pause();
     } else {
       audioRef.current.volume = 0.3;
-      
+
       // Try to play with a small delay to ensure UI has updated
       setTimeout(() => {
         if (audioRef.current) {
-          audioRef.current.play().catch(() => {});
+          audioRef.current.play().catch(() => { });
         }
       }, 100);
     }
   }, [isMuted]);
 
-  // When loading ends, try to play audio again
-  useEffect(() => {
-    if (!loading && audioRef.current) {
-      // Try playing the audio when we exit the loading screen
-      setTimeout(() => {
-        if (audioRef.current && audioRef.current.paused && !isMuted) {
-          audioRef.current.play().catch(() => {});
-        }
-      }, 200);
-    }
-  }, [loading, isMuted]);
-
-  // Set loading timeout - exactly 15 seconds
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 15000);
-    
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
-  if (loading) {
-    return (
-      <div 
-        className="loading-screen"
-        onClick={() => {
-          if (audioRef.current && audioRef.current.paused) {
-            audioRef.current.play().catch(() => {});
-          }
-        }}
-      >
-        <video 
-          className="loading-video" 
-          autoPlay 
-          muted 
-          loop
-          playsInline
-        >
-          <source src="/videos/loading-animation.mp4" type="video/mp4" />
-        </video>
-        <div className="audio-prompt">
-          <p className="text-lg">Click anywhere to enable audio</p>
-        </div>
-        <div className="loading-content">
-          {showName && (
-            <>
-              <h1 className="text-4xl font-bold text-emerald-500 mb-4 cinematic-title">FARHAN AHMED</h1>
-              <p className="text-xl text-white mb-4 cinematic-subtitle">Backend Dev | AWS Community Builder | Open Source Contributor</p>
-              <div className="loading-progress">
-                <div 
-                  className="loading-progress-bar"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </>
-          )}
-        </div>
-        <div className="scanlines"></div>
-      </div>
-    );
-  }
-
   return (
     <Router>
       <div className="min-h-screen text-white relative overflow-hidden" style={{ backgroundColor: 'var(--light-black-950)' }}>
-        {/* Audio toggle button */}
-        <button
-          onClick={() => setIsMuted(!isMuted)}
-          className="fixed bottom-24 right-4 z-50 backdrop-blur-md p-2 rounded-full hover:text-emerald-500 transition-colors"
-          style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)', color: isMuted ? 'white' : '#10b981' }}
-          aria-label={isMuted ? 'Unmute' : 'Mute'}
-        >
-          {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-        </button>
-        
-        <div className="absolute inset-0 z-0 opacity-20 bg-blend-overlay">
-          <img 
-            src={`/images/dark-bg-${backgroundOption || '1'}.jpg`} 
-            alt="Background" 
-            className="w-full h-full object-cover" 
+        {/* We need to use useLocation to conditionally render components */}
+        <RouteConditionalComponents
+          backgroundOption={backgroundOption}
+          setBackgroundOption={setBackgroundOption}
+          isMuted={isMuted}
+          setIsMuted={setIsMuted}
+        />
+        {/* <div className="absolute inset-0 z-0 opacity-30 bg-blend-overlay"> */}
+
+        <div className="absolute inset-0 z-0 bg-blend-overlay" style={{ opacity: 0.15 }}>
+          <img
+            src={`/images/animated-bg-${backgroundOption || '1'}.gif`}
+            alt="Animated Background"
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-12 relative z-10">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LoadingScreen />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/experience" element={<Experience />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/skills" element={<Skills />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/thankyou" element={<Navigate to="/home" replace />} />
           </Routes>
           <Footer />
         </div>
-        
-        <button 
-          className="fixed top-4 right-4 p-2 rounded-full text-emerald-400 hover:text-emerald-300 transition-colors z-20"
-          style={{ backgroundColor: 'var(--light-black-800)' }}
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        >
-          ↑
-        </button>
-        
-        <div className="fixed bottom-0 left-0 right-0 z-50">
-          <Navigation />
-        </div>
-        <BackgroundSettings 
-          currentBg={backgroundOption} 
-          onChange={setBackgroundOption} 
-        />
       </div>
     </Router>
+  );
+}
+
+// Helper component to conditionally render UI elements based on current route
+const RouteConditionalComponents = ({
+  backgroundOption,
+  setBackgroundOption,
+  isMuted,
+  setIsMuted
+}: {
+  backgroundOption: string,
+  setBackgroundOption: (bg: string) => void,
+  isMuted: boolean,
+  setIsMuted: (muted: boolean) => void
+}) => {
+  const location = useLocation();
+  const isLoadingScreen = location.pathname === '/';
+
+  // Only render these components when not on the loading screen
+  if (isLoadingScreen) {
+    return null;
+  }
+
+  return (
+    <>
+      {/* Audio toggle button */}
+      <button
+        onClick={() => setIsMuted(!isMuted)}
+        className="fixed bottom-24 right-4 z-50 backdrop-blur-md p-2 rounded-full hover:text-emerald-500 transition-colors"
+        style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)', color: isMuted ? 'white' : '#10b981' }}
+        aria-label={isMuted ? 'Unmute' : 'Mute'}
+      >
+        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+      </button>
+
+      {/* Scroll to top button */}
+      <button
+        className="fixed top-4 right-4 p-2 rounded-full text-emerald-400 hover:text-emerald-300 transition-colors z-20"
+        style={{ backgroundColor: 'var(--light-black-800)' }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      >
+        ↑
+      </button>
+
+      {/* Navigation */}
+      <div className="fixed bottom-0 left-0 right-0 z-50">
+        <Navigation />
+      </div>
+
+      {/* Background Settings */}
+      <BackgroundSettings
+        currentBg={backgroundOption}
+        onChange={setBackgroundOption}
+      />
+    </>
   );
 }
 
