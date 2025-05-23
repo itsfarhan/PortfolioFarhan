@@ -495,28 +495,36 @@ const Projects = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {[
         {
-          title: 'Cloud Native Platform',
-          description: 'A scalable microservices architecture handling millions of requests daily. Built with Spring Boot, Java, and AWS services.',
-          tech: ['Java', 'Spring Boot', 'AWS', 'PostgreSQL', 'Docker'],
-          link: 'https://github.com'
+          title: 'Portfolio',
+          description: 'Personal portfolio showcasing my work, experience, skills and projects. Built with TypeScript, React, and styled with HTML/CSS.',
+          tech: ['TypeScript', 'React', 'AWS S3, CloudFront, ACM', 'Cloudflare'],
+          link: 'https://farhanahmed.pro'
         },
         {
-          title: 'Real-time Analytics Engine',
-          description: 'Processing terabytes of data in real-time with distributed systems. Handles complex data pipelines with Go and AWS.',
-          tech: ['Go', 'AWS', 'DynamoDB', 'Kubernetes', 'Terraform'],
-          link: 'https://github.com'
+          title: 'Interview Prep',
+          description: 'Compilation of my interview preparation. This repo includes Java, Spring Boot, DSA in Java, and System Design concepts with Java.',
+          tech: ['Java', 'Spring Boot', 'System Design', 'Data Structures & Algorithms'],
+          link: 'https://github.com/itsfarhan/interview-prep'
         },
         {
-          title: 'Infrastructure as Code Framework',
-          description: 'A comprehensive IaC solution for managing cloud infrastructure. Supports multi-cloud deployments and complex architectures.',
-          tech: ['Terraform', 'AWS', 'Kubernetes', 'Helm', 'Docker'],
-          link: 'https://github.com'
+          title: 'Go Web App CI/CD',
+          description: 'A simple Go web application designed to demonstrate DevOps practices, including containerization and continuous integration/deployment pipelines.',
+          tech: ['Go', 'AWS EKS', 'Docker', 'Kubernetes', 'Helm', 'Github Actions'],
+          link: 'https://github.com/itsfarhan/go-web-app-cicd'
         },
+
         {
-          title: 'API Gateway Service',
-          description: 'High-performance API Gateway with built-in authentication, rate limiting, and monitoring capabilities.',
-          tech: ['Go', 'Gin', 'Fiber', 'PostgreSQL', 'Docker'],
-          link: 'https://github.com'
+          title: 'Accountant Reminder',
+          description: 'A Java-based solution for accountants to streamline invoice collection and notification processes. Clients can upload invoices, and accountants can send notifications via email to ensure all required documents are provided, reducing manual follow-up.',
+          tech: ['Java', 'Spring Boot', 'AWS S3, Lambda, IAM, SES, VPC, DynamoDB', 'Terraform'],
+          link: 'https://github.com/itsfarhan/Accountant-Reminder'
+        },
+
+        {
+          title: 'URL Shortener Application',
+          description: 'A web application that enables users to convert long URLs into short, shareable links and redirects users from shortened URLs back to the original destinations. Built with Spring Boot and Java, featuring a clean HTML/CSS frontend. Designed for scalability and ease of use.',
+          tech: ['Java', 'Spring Boot', 'HTML', 'CSS', 'Thymeleaf', 'H2 Database'],
+          link: 'https://github.com/itsfarhan/URL-Shortener-Application-Spring-Boot-Project'
         }
       ].map((project, index) => (
         <div key={index} className="p-6 rounded-lg space-y-4 hover:shadow-md hover:shadow-emerald-500/10 transition-all" style={{ backgroundColor: 'var(--light-black-800)' }}>
@@ -595,7 +603,7 @@ const Experience = () => {
       <h2 className="text-3xl font-bold text-white mb-12 text-center">Experience</h2>
 
       <div className="space-y-12">
-        {/* <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
+        <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold text-white">Software Engineer</h3>
@@ -604,13 +612,37 @@ const Experience = () => {
             <span className="text-white">2021 - 2024</span>
           </div>
           <ul className="mt-4 space-y-2 list-disc pl-5 text-white">
-            <li>Led the development of microservices architecture that improved system reliability by 40%</li>
-            <li>Implemented CI/CD pipelines that reduced deployment time from days to minutes</li>
-            <li>Mentored junior developers and conducted code reviews</li>
+            <li>Developed and maintained microservices using Java Spring Boot, Spring Data JPA, and Maven</li>
+            <li>Created secure REST APIs with OAuth2 and JWT-based authentication</li>
+            <li>Performed static code analysis with Veracode to meet PCI-DSS compliance standards</li>
+            <li>Provisioned AWS infrastructure using EC2, Lambda, and S3 for scalable deployments</li>
+            <li>Led sprint planning and collaborated across QA and DevOps teams in an Agile environment</li>
           </ul>
-        </div> */}
+        </div>
 
-        {/* <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
+
+        <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-xl font-bold text-white">Technical Reviewer</h3>
+              <p className="text-emerald-500">Packt Publishing</p>
+            </div>
+            <span className="text-white">2024 - 2025</span>
+          </div>
+          <ul className="mt-4 space-y-2 list-disc pl-5 text-white">
+            <li>Reviewed Kubernetes and Terraform-based content for technical accuracy</li>
+            <li>Provided actionable feedback on chapters, diagrams, and code examples</li>
+            <li>Ensured clarity and completeness of Kubernetes Autoscaling with KEDA book</li>
+            <li>Worked with tools like Docker, Go, and Karpenter during technical evaluations</li>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+{/* <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
           <div className="flex justify-between items-start">
             <div>
               <h3 className="text-xl font-bold text-white">Backend Developer</h3>
@@ -625,24 +657,8 @@ const Experience = () => {
           </ul>
         </div>
          */}
-        <div className="rounded-lg p-6 border-l-4 border-emerald-500 glass-effect" style={{ backgroundColor: 'rgba(24, 24, 24, 0.7)' }}>
-          <div className="flex justify-between items-start">
-            <div>
-              <h3 className="text-xl font-bold text-white">Software Engineer</h3>
-              <p className="text-emerald-500">Virtusa</p>
-            </div>
-            <span className="text-white">2021 - 2024</span>
-          </div>
-          <ul className="mt-4 space-y-2 list-disc pl-5 text-white">
-            <li>Developed and maintained Microservices using Java and Springboot</li>
-            <li>Collaborated with frontend developers to integrate APIs</li>
-            <li>Participated in agile development process and sprint planning</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-};
+
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -697,7 +713,7 @@ const Contact = () => {
               className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors"
             >
               <CircleDollarSign className="w-5 h-5" />
-              Buy a coffee for Farhan
+              Sponsor  a coffee for Farhan
             </a>
           </div>
         </div>
@@ -895,7 +911,7 @@ const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null,
 
 function App() {
   // Default to the first animated background
-  const [backgroundOption, setBackgroundOption] = useState<string>('1');
+  const [backgroundOption, setBackgroundOption] = useState<string>('2');
   const [isMuted, setIsMuted] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -1013,9 +1029,9 @@ function App() {
         />
         {/* <div className="absolute inset-0 z-0 opacity-30 bg-blend-overlay"> */}
 
-        <div className="absolute inset-0 z-0 bg-blend-overlay" style={{ opacity: 0.15 }}>
+        <div className="absolute inset-0 z-0 bg-blend-overlay" style={{ opacity: 0.18 }}>
           <img
-            src={`/images/animated-bg-${backgroundOption || '1'}.gif`}
+            src={`/images/animated-bg-${backgroundOption || '2'}.gif`}
             alt="Animated Background"
             className="w-full h-full object-cover"
           />
