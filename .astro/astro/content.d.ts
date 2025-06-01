@@ -173,6 +173,29 @@ declare module 'astro:content' {
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
 };
+"docs": {
+"aws-lambda-fundamentals.md": {
+	id: "aws-lambda-fundamentals.md";
+  slug: "aws-lambda-fundamentals";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"docker-basics.md": {
+	id: "docker-basics.md";
+  slug: "docker-basics";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+"java-collections-overview.md": {
+	id: "java-collections-overview.md";
+  slug: "java-collections-overview";
+  body: string;
+  collection: "docs";
+  data: InferEntrySchema<"docs">
+} & { render(): Render[".md"] };
+};
 
 	};
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Home, Briefcase, Code, Mail, BookOpen, Award } from 'lucide-react';
+import { Home, Briefcase, Code, Mail, BookOpen, Award, FileText } from 'lucide-react';
 
 const Navigation = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -27,6 +27,7 @@ const Navigation = () => {
     { path: '/experience', label: 'Experience', icon: <Award className="w-5 h-5" /> },
     { path: '/projects', label: 'Projects', icon: <Briefcase className="w-5 h-5" /> },
     { path: '/blog', label: 'Blog', icon: <BookOpen className="w-5 h-5" />, includes: ['/blog/'] },
+    { path: '/docs', label: 'Docs', icon: <FileText className="w-5 h-5" />, includes: ['/docs/'] },
     { path: '/skills', label: 'Skills', icon: <Code className="w-5 h-5" /> },
     { path: '/contact', label: 'Contact', icon: <Mail className="w-5 h-5" /> },
   ];
