@@ -6,7 +6,6 @@ const LoadingScreen = () => {
   const [audioPromptVisible, setAudioPromptVisible] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Function to attempt playing the background music
   const playBackgroundMusic = () => {
     if (audioRef.current) {
       audioRef.current.volume = 0.3;
@@ -23,7 +22,6 @@ const LoadingScreen = () => {
   };
 
   useEffect(() => {
-    // Create audio element
     const audioElement = new Audio('/audio/Vault-1.mp3');
     audioElement.loop = true;
     audioElement.volume = 0.3;
@@ -31,34 +29,32 @@ const LoadingScreen = () => {
 
     let interval: ReturnType<typeof setInterval> | null = null;
 
-    // Show name and start progress bar at the 13th second
+    // Show name and start progress bar
     const nameAndProgressTimer = setTimeout(() => {
       setShowName(true);
-      setProgress(2); // Start progress bar animation
+      setProgress(2);
       interval = setInterval(() => {
         setProgress(prev => {
           if (prev >= 100) {
             if (interval) clearInterval(interval);
-            // Auto-navigate to home when progress reaches 100%
             window.location.href = '/home';
             return 100;
           }
           return prev + 2;
         });
-      }, 30); // Update progress every 30ms
-    }, 8000); // Reduced from 13 seconds to 8 seconds for better UX
+      }, 30);
+    }, 6000); // Reduced for better UX
 
-    // Hide the audio prompt after 5 seconds
+    // Hide the audio prompt after a few seconds
     const hideAudioPromptTimer = setTimeout(() => {
       setAudioPromptVisible(false);
-    }, 5000); // Reduced from 8 seconds to 5 seconds
+    }, 4000);
 
     return () => {
       if (interval) clearInterval(interval);
       clearTimeout(nameAndProgressTimer);
       clearTimeout(hideAudioPromptTimer);
       
-      // Stop and clean up audio when component unmounts
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current.src = '';
@@ -82,15 +78,15 @@ const LoadingScreen = () => {
       </video>
       {audioPromptVisible && (
         <div className="audio-prompt font-cinematic">
-          <p className="text-lg">Click anywhere to enable audio</p>
+          <p className="text-sm">Click anywhere to enable audio</p>
         </div>
       )}
       <div className="loading-content">
         {showName && (
           <>
-            <h1 className="text-5xl font-bold text-emerald-500 mb-6 cinematic-title font-cinematic">FARHAN AHMED</h1>
-            <p className="text-xl text-white mb-8 cinematic-subtitle font-cinematic">BACKEND DEV • AWS COMMUNITY BUILDER • OPEN SOURCE</p>
-            <div className="loading-progress max-w-sm mx-auto">
+            <h1 className="text-3xl md:text-4xl font-bold text-emerald-400 mb-4 cinematic-title font-cinematic tracking-wide">FARHAN AHMED</h1>
+            <p className="text-sm md:text-base text-white/80 mb-6 cinematic-subtitle font-cinematic tracking-wider">BACKEND DEV • AWS COMMUNITY BUILDER • OPEN SOURCE</p>
+            <div className="loading-progress max-w-xs mx-auto">
               <div
                 className="loading-progress-bar"
                 style={{ width: `${progress}%` }}
@@ -100,7 +96,7 @@ const LoadingScreen = () => {
         )}
       </div>
       <button
-        className="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-600/20 z-50"
+        className="fixed bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 bg-emerald-600 text-white text-sm rounded-md hover:bg-emerald-700 transition-all duration-200 transform hover:scale-105 z-50"
         onClick={handleSkip}
       >
         Skip Intro

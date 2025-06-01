@@ -10,25 +10,20 @@ const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null,
   }, []);
 
   return (
-    <div className={`fixed top-4 right-4 z-50 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+    <div className={`fixed top-6 right-6 z-50 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-full hover:text-emerald-500 transition-colors hover:bg-gray-800/70 transform hover:scale-110 transition-transform"
-        style={{ backgroundColor: 'rgba(24, 24, 24, 0.8)', backdropFilter: 'blur(5px)' }}
+        className="p-2 rounded-full text-white/70 hover:text-emerald-400 transition-colors hover:bg-white/5 transform hover:scale-110"
+        aria-label="Background settings"
       >
-        <Settings className="w-5 h-5" />
+        <Settings className="w-4 h-4" />
       </button>
 
       {isOpen && (
         <div 
-          className="absolute right-0 mt-2 rounded-lg shadow-lg p-4 w-48 glass-effect animate-fade-in" 
-          style={{ 
-            backgroundColor: 'rgba(24, 24, 24, 0.8)',
-            borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-            borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-          }}
+          className="absolute right-0 mt-2 rounded-lg shadow-lg p-3 w-40 glass-effect animate-fade-in" 
         >
-          <h4 className="text-sm mb-3 text-white font-semibold">Animated Backgrounds</h4>
+          <h4 className="text-xs mb-2 text-white/70 font-medium">Animated Backgrounds</h4>
           <div className="flex gap-2">
             {[1, 2, 3].map(num => (
               <button
@@ -37,10 +32,10 @@ const BackgroundSettings = ({ currentBg, onChange }: { currentBg: string | null,
                   onChange(num.toString());
                   setIsOpen(false);
                 }}
-                className={`w-12 h-12 rounded-md overflow-hidden border-2 transition-all duration-300 transform hover:scale-105 ${
+                className={`w-10 h-10 rounded overflow-hidden border transition-all duration-200 ${
                   currentBg === num.toString() 
-                    ? 'border-emerald-500 shadow-lg shadow-emerald-500/20' 
-                    : 'border-transparent hover:border-emerald-500/50'
+                    ? 'border-emerald-500 shadow-md shadow-emerald-500/10' 
+                    : 'border-white/10 hover:border-emerald-500/50'
                 }`}
               >
                 <img

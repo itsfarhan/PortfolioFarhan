@@ -41,35 +41,25 @@ const Experience = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-32">
-      <h2 className="text-3xl font-bold text-white mb-12 text-center animate-fade-in">Experience</h2>
+    <div className="min-h-screen pt-8 pb-32">
+      <h2 className="text-3xl font-bold text-white mb-12 text-center animate-fade-in relative inline-block mx-auto">
+        Experience
+        <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-400 to-transparent"></span>
+      </h2>
 
-      <div className="relative space-y-12 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-emerald-500 before:to-transparent">
+      <div className="space-y-8">
         {experiences.map((exp, index) => (
           <div 
             key={index}
-            className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group ${index % 2 === 0 ? 'animate-fade-in-left' : 'animate-fade-in-right'}`}
+            className="glass-effect hover-card rounded-lg overflow-hidden"
             style={{ 
               opacity: 0,
-              animation: isLoaded ? `${index % 2 === 0 ? 'fadeInLeft' : 'fadeInRight'} 0.6s ${index * 0.2}s forwards` : 'none'
+              animation: isLoaded ? `fadeIn 0.6s ${index * 0.2}s forwards` : 'none'
             }}
           >
-            <div className="flex items-center justify-center w-10 h-10 rounded-full border border-emerald-300 bg-slate-800 group-odd:md:translate-x-0.5 group-even:md:-translate-x-0.5 text-emerald-500 animate-pulse-slow">
-              <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20">
-                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-              </svg>
-            </div>
-            
-            <div 
-              className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-xl glass-effect backdrop-blur-md shadow-xl hover-card"
-              style={{ 
-                backgroundColor: 'rgba(24, 24, 24, 0.7)',
-                borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-                borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-              }}
-            >
+            <div className="p-6">
               <div className="flex items-center">
-                <div className="w-12 h-12 mr-4 rounded-full bg-white p-1 ring-2 ring-emerald-500/30 overflow-hidden">
+                <div className="w-10 h-10 mr-4 rounded bg-white p-1 overflow-hidden flex-shrink-0">
                   <img 
                     src={exp.logo} 
                     alt={exp.company} 
@@ -77,29 +67,32 @@ const Experience = () => {
                   />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">{exp.title}</h3>
-                  <p className="text-emerald-500">{exp.company}</p>
+                  <h3 className="text-xl font-medium text-white">{exp.title}</h3>
+                  <p className="text-emerald-400 text-sm">{exp.company}</p>
                 </div>
               </div>
               
-              <div className="flex flex-wrap gap-3 mt-3 mb-4">
-                <span className="flex items-center text-sm text-white/70 hover:text-emerald-300 transition-colors">
-                  <Calendar className="w-4 h-4 mr-1 text-emerald-400" />
+              <div className="flex flex-wrap gap-3 mt-3 mb-4 text-xs text-white/60">
+                <span className="flex items-center hover:text-emerald-300 transition-colors">
+                  <Calendar className="w-3.5 h-3.5 mr-1 text-emerald-400" />
                   {exp.period}
                 </span>
-                <span className="flex items-center text-sm text-white/70 hover:text-emerald-300 transition-colors">
-                  <MapPin className="w-4 h-4 mr-1 text-emerald-400" />
+                <span className="flex items-center hover:text-emerald-300 transition-colors">
+                  <MapPin className="w-3.5 h-3.5 mr-1 text-emerald-400" />
                   {exp.location}
                 </span>
-                <span className="flex items-center text-sm text-white/70 hover:text-emerald-300 transition-colors">
-                  <Link className="w-4 h-4 mr-1 text-emerald-400" />
+                <span className="flex items-center hover:text-emerald-300 transition-colors">
+                  <Link className="w-3.5 h-3.5 mr-1 text-emerald-400" />
                   {exp.website}
                 </span>
               </div>
               
-              <ul className="mt-4 space-y-2 list-disc pl-5 text-white">
+              <ul className="mt-4 space-y-2 text-white/80 text-sm">
                 {exp.responsibilities.map((responsibility, i) => (
-                  <li key={i} className="hover:text-emerald-300 transition-colors">{responsibility}</li>
+                  <li key={i} className="flex items-start">
+                    <span className="text-emerald-400 mr-2 mt-1">•</span>
+                    <span>{responsibility}</span>
+                  </li>
                 ))}
               </ul>
             </div>

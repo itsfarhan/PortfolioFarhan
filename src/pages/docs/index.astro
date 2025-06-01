@@ -24,132 +24,126 @@ const docsByCategory = categories.map(category => {
 ---
 
 <Layout title="Farhan Ahmed | Documentation">
-  <div class="min-h-screen pb-32">
-    <div class="mb-16 text-center">
-      <h2 class="text-4xl font-bold text-white mb-4 animate-fade-in relative inline-block">
+  <div class="min-h-screen pt-8 pb-32">
+    <div class="mb-10 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4 animate-fade-in relative inline-block">
         Documentation
-        <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent"></span>
+        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-emerald-400 to-transparent"></span>
       </h2>
-      <p class="text-gray-300 max-w-2xl mx-auto animate-fade-in">
+      <p class="text-white/70 max-w-2xl mx-auto animate-fade-in text-sm">
         My personal notes, guides, and reference materials
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
       <div class="md:col-span-1">
         <div 
-          class="sticky top-24 p-6 rounded-xl glass-effect backdrop-blur-md transition-all duration-500 hover-card animate-fade-in"
-          style={{ 
-            backgroundColor: 'rgba(24, 24, 24, 0.7)',
-            borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-            borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-          }}
+          class="sticky top-24 rounded-lg glass-effect hover-card animate-fade-in"
         >
-          <h3 class="text-xl font-semibold text-white mb-6 border-b border-emerald-500/30 pb-2 relative">
-            Categories
-            <span 
-              class="absolute bottom-0 left-0 h-[3px] bg-emerald-500 rounded-full"
-              style={{ width: '30%' }}
-            ></span>
-          </h3>
-          
-          <nav class="space-y-1">
-            {categories.map(category => (
+          <div class="p-5">
+            <h3 class="text-lg font-medium text-white mb-4 pb-2 border-b border-white/10 relative">
+              Categories
+              <span 
+                class="absolute bottom-0 left-0 h-[2px] bg-emerald-400 rounded-full"
+                style={{ width: '25%' }}
+              ></span>
+            </h3>
+            
+            <nav class="space-y-1">
+              {categories.map(category => (
+                <a 
+                  href={`#${category.toLowerCase().replace(/\s+/g, '-')}`}
+                  class="block py-1.5 px-3 rounded text-sm hover:bg-emerald-500/5 text-white/80 hover:text-emerald-400 transition-colors"
+                >
+                  {category}
+                </a>
+              ))}
+            </nav>
+            
+            <div class="mt-6 pt-4 border-t border-white/10">
               <a 
-                href={`#${category.toLowerCase().replace(/\s+/g, '-')}`}
-                class="block py-2 px-3 rounded-lg hover:bg-emerald-500/10 text-white hover:text-emerald-400 transition-colors"
+                href="/docs/create"
+                class="inline-flex items-center gap-2 text-emerald-400 text-sm hover:text-emerald-300 transition-colors group"
               >
-                {category}
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  class="h-4 w-4" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                >
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span class="group-hover:underline">Add New Document</span>
               </a>
-            ))}
-          </nav>
-          
-          <div class="mt-8 pt-6 border-t border-emerald-500/20">
-            <a 
-              href="/docs/create"
-              class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors group"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                class="h-5 w-5" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-              >
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-              </svg>
-              <span class="group-hover:underline">Add New Document</span>
-            </a>
+            </div>
           </div>
         </div>
       </div>
       
-      <div class="md:col-span-2">
+      <div class="md:col-span-3">
         {docsByCategory.map(({ category, docs }, categoryIndex) => (
           <section 
             id={category.toLowerCase().replace(/\s+/g, '-')}
-            class="mb-16 scroll-mt-24"
+            class="mb-10 scroll-mt-24"
             style={{ 
               opacity: 0,
               animation: `fadeIn 0.5s ${categoryIndex * 0.15}s forwards`
             }}
           >
-            <h3 class="text-2xl font-bold text-white mb-6 relative inline-block">
+            <h3 class="text-xl font-medium text-white mb-4 relative inline-block">
               {category}
-              <span class="absolute bottom-0 left-0 w-full h-[2px] bg-emerald-500 rounded-full"></span>
+              <span class="absolute bottom-0 left-0 w-full h-[1px] bg-emerald-400 rounded-full"></span>
             </h3>
             
-            <div class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-1 gap-4">
               {docs.map((doc, docIndex) => (
                 <a 
                   href={`/docs/${doc.slug}`}
-                  class="p-6 rounded-xl glass-effect backdrop-blur-md transition-all duration-500 hover-card"
+                  class="rounded-lg glass-effect hover-card p-4"
                   style={{ 
-                    backgroundColor: 'rgba(24, 24, 24, 0.7)',
-                    borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-                    borderTop: '1px solid rgba(16, 185, 129, 0.1)',
                     opacity: 0,
                     animation: `fadeIn 0.5s ${categoryIndex * 0.15 + docIndex * 0.1}s forwards`
                   }}
                 >
-                  <div class="flex items-center mb-3">
-                    <div class="w-1 h-10 bg-emerald-500 mr-3 rounded group-hover:h-14 transition-all duration-300"></div>
-                    <h4 class="text-xl font-semibold text-white group-hover:text-emerald-400 transition-colors duration-300">
+                  <div class="flex items-center mb-2">
+                    <div class="w-1 h-8 bg-emerald-400/50 mr-3 rounded transition-all duration-300 group-hover:h-12"></div>
+                    <h4 class="text-lg font-medium text-white group-hover:text-emerald-400 transition-colors duration-300">
                       {doc.data.title}
                     </h4>
                   </div>
                   
-                  <p class="text-white/80 mb-4">{doc.data.description}</p>
+                  <p class="text-white/70 text-sm mb-3 line-clamp-2">{doc.data.description}</p>
                   
                   <div class="flex justify-between items-center">
                     <div class="flex flex-wrap gap-2">
                       {doc.data.tags.slice(0, 3).map((tag) => (
                         <span 
-                          class="px-2.5 py-1 rounded-full text-xs font-medium text-emerald-400 transition-colors duration-300"
-                          style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
+                          class="px-2 py-0.5 rounded-full text-xs text-emerald-300"
+                          style={{ backgroundColor: "rgba(16, 185, 129, 0.05)" }}
                         >
                           {tag}
                         </span>
                       ))}
                       {doc.data.tags.length > 3 && (
                         <span 
-                          class="px-2.5 py-1 rounded-full text-xs font-medium text-emerald-400"
-                          style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
+                          class="px-2 py-0.5 rounded-full text-xs text-emerald-300"
+                          style={{ backgroundColor: "rgba(16, 185, 129, 0.05)" }}
                         >
                           +{doc.data.tags.length - 3}
                         </span>
                       )}
                     </div>
                     
-                    <div class="flex items-center text-emerald-500 font-medium transition-transform duration-300">
+                    <div class="flex items-center text-emerald-400 text-sm">
                       Read
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 ml-1 transition-transform duration-300"
+                        class="h-4 w-4 ml-1"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                       >
@@ -168,10 +162,10 @@ const docsByCategory = categories.map(category => {
         ))}
         
         {docsByCategory.length === 0 && (
-          <div class="text-center p-16 rounded-xl glass-effect backdrop-blur-md animate-fade-in">
+          <div class="text-center p-10 rounded-lg glass-effect animate-fade-in">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
-              class="h-16 w-16 mx-auto text-emerald-500/50 mb-4" 
+              class="h-16 w-16 mx-auto text-emerald-500/30 mb-4" 
               viewBox="0 0 24 24" 
               fill="none" 
               stroke="currentColor" 
@@ -185,11 +179,11 @@ const docsByCategory = categories.map(category => {
               <line x1="16" y1="17" x2="8" y2="17"></line>
               <polyline points="10 9 9 9 8 9"></polyline>
             </svg>
-            <p class="text-white/70 text-lg">No documentation available yet.</p>
-            <p class="text-emerald-400 mt-2">Start by adding your first document.</p>
+            <p class="text-white/70 mb-2">No documentation available yet.</p>
+            <p class="text-emerald-400 text-sm mb-4">Start by adding your first document.</p>
             <a 
               href="/docs/create" 
-              class="mt-6 inline-block px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all duration-300"
+              class="inline-block px-4 py-2 bg-emerald-600 text-white text-sm rounded-md hover:bg-emerald-700 transition-all duration-300"
             >
               Create New Document
             </a>
@@ -199,3 +193,12 @@ const docsByCategory = categories.map(category => {
     </div>
   </div>
 </Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

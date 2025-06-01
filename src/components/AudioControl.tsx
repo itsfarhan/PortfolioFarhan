@@ -11,7 +11,6 @@ const AudioControl = () => {
   useEffect(() => {
     setIsLoaded(true);
     
-    // Now we're using the ref to access the audio element rendered in the JSX
     if (!audioRef.current) return;
     
     const audioElement = audioRef.current;
@@ -24,38 +23,29 @@ const AudioControl = () => {
       }
     };
 
-    // Attempt initial play
     tryPlay();
 
-    // Set up various timers to try playing at different times
     const timers = [
-      setTimeout(tryPlay, 500),   // Quick initial retry
-      setTimeout(tryPlay, 2000),  // After 2 seconds
-      setTimeout(tryPlay, 5000),  // After 5 seconds
-      setTimeout(tryPlay, 10000), // After 10 seconds
-      setTimeout(tryPlay, 14000)  // Just before loading screen might end
+      setTimeout(tryPlay, 500),
+      setTimeout(tryPlay, 2000),
+      setTimeout(tryPlay, 5000),
+      setTimeout(tryPlay, 10000),
+      setTimeout(tryPlay, 14000)
     ];
 
-    // Set up a variety of events that might trigger audio playback
     const events = ['click', 'touchstart', 'keydown', 'scroll', 'mousemove'];
-
     const playOnUserAction = () => {
       if (audioElement.paused) {
         audioElement.play().catch(() => { });
       }
     };
 
-    // Add all listeners
     events.forEach(evt => {
       window.addEventListener(evt, playOnUserAction);
     });
 
-    // Cleanup function
     return () => {
-      // Clear all timers
       timers.forEach(timer => clearTimeout(timer));
-
-      // Remove all event listeners
       events.forEach(evt => {
         window.removeEventListener(evt, playOnUserAction);
       });
@@ -71,8 +61,6 @@ const AudioControl = () => {
       audioRef.current.pause();
     } else {
       audioRef.current.volume = 0.3;
-
-      // Try to play with a small delay to ensure UI has updated
       setTimeout(() => {
         if (audioRef.current) {
           audioRef.current.play().catch(() => { });
@@ -95,16 +83,15 @@ const AudioControl = () => {
         onClick={() => setIsMuted(!isMuted)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed bottom-24 right-4 z-50 backdrop-blur-md p-2.5 rounded-full transition-all duration-300 transform ${isHovered ? 'scale-110 shadow-glow-sm' : ''} ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}
+        className={`fixed bottom-20 right-6 z-50 p-2 rounded-full transition-all duration-200 transform ${isHovered ? 'scale-110' : ''} ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}
         style={{ 
           backgroundColor: 'rgba(24, 24, 24, 0.8)', 
           color: isMuted ? 'white' : '#10b981',
-          boxShadow: isHovered ? '0 0 10px rgba(16, 185, 129, 0.5)' : 'none',
-          border: '1px solid rgba(16, 185, 129, 0.1)'
+          border: '1px solid rgba(255, 255, 255, 0.1)'
         }}
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
-        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+        {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
       </button>
     </>
   );

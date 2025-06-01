@@ -35,15 +35,15 @@ const nextDoc = currentIndex < sidebarDocs.length - 1 ? sidebarDocs[currentIndex
 ---
 
 <Layout title={`${entry.data.title} | Documentation | Farhan Ahmed`}>
-  <div class="min-h-screen pb-32">
-    <div class="mb-10 animate-fade-in">
+  <div class="min-h-screen pt-8 pb-32">
+    <div class="mb-8 animate-fade-in">
       <a 
         href="/docs" 
-        class="inline-flex items-center text-emerald-400 hover:text-emerald-500 mb-8 group transition-colors"
+        class="inline-flex items-center text-emerald-400 hover:text-emerald-300 text-sm group transition-colors"
       >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          class="h-5 w-5 mr-2 transition-transform group-hover:-translate-x-1" 
+          class="h-4 w-4 mr-1 transition-transform group-hover:-translate-x-1" 
           viewBox="0 0 20 20" 
           fill="currentColor"
         >
@@ -55,95 +55,91 @@ const nextDoc = currentIndex < sidebarDocs.length - 1 ? sidebarDocs[currentIndex
         </svg>
         <span class="relative">
           Back to Documentation
-          <span class="absolute left-0 bottom-0 w-full h-[1px] bg-emerald-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
         </span>
       </a>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
       <!-- Sidebar -->
       <div class="md:col-span-1">
         <div 
-          class="sticky top-24 p-6 rounded-xl glass-effect backdrop-blur-md transition-all duration-500 hover-card animate-fade-in"
-          style={{ 
-            backgroundColor: 'rgba(24, 24, 24, 0.7)',
-            borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-            borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-          }}
+          class="sticky top-24 rounded-lg glass-effect hover-card animate-fade-in"
         >
-          <h3 class="text-xl font-semibold text-white mb-6 border-b border-emerald-500/30 pb-2 relative">
-            {entry.data.category}
-            <span 
-              class="absolute bottom-0 left-0 h-[3px] bg-emerald-500 rounded-full"
-              style={{ width: '30%' }}
-            ></span>
-          </h3>
-          
-          <nav class="space-y-1">
-            {sidebarDocs.map(doc => (
+          <div class="p-4">
+            <h3 class="text-lg font-medium text-white mb-4 pb-2 border-b border-white/10 relative">
+              {entry.data.category}
+              <span 
+                class="absolute bottom-0 left-0 h-[2px] bg-emerald-400 rounded-full"
+                style={{ width: '25%' }}
+              ></span>
+            </h3>
+            
+            <nav class="space-y-1">
+              {sidebarDocs.map(doc => (
+                <a 
+                  href={`/docs/${doc.slug}`}
+                  class={`block py-1.5 px-3 rounded text-sm transition-colors ${
+                    doc.slug === entry.slug 
+                      ? 'bg-emerald-500/10 text-emerald-400 font-medium' 
+                      : 'hover:bg-emerald-500/5 text-white/80 hover:text-emerald-400'
+                  }`}
+                >
+                  {doc.data.title}
+                </a>
+              ))}
+            </nav>
+            
+            <div class="mt-6 pt-4 border-t border-white/10">
               <a 
-                href={`/docs/${doc.slug}`}
-                class={`block py-2 px-3 rounded-lg transition-colors ${
-                  doc.slug === entry.slug 
-                    ? 'bg-emerald-500/20 text-emerald-400 font-medium' 
-                    : 'hover:bg-emerald-500/10 text-white hover:text-emerald-400'
-                }`}
+                href="/docs"
+                class="inline-flex items-center gap-1.5 text-emerald-400 text-sm hover:text-emerald-300 transition-colors group"
               >
-                {doc.data.title}
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  class="h-4 w-4" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span class="group-hover:underline">All Documents</span>
               </a>
-            ))}
-          </nav>
-          
-          <div class="mt-8 pt-6 border-t border-emerald-500/20">
-            <a 
-              href="/docs"
-              class="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-500 transition-colors group"
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                class="h-5 w-5" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                stroke-width="2" 
-                stroke-linecap="round" 
-                stroke-linejoin="round"
-              >
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
-              <span class="group-hover:underline">All Documents</span>
-            </a>
+            </div>
           </div>
         </div>
       </div>
       
       <!-- Main Content -->
-      <div class="md:col-span-3">
-        <div class="mb-8">
-          <div class="flex flex-wrap items-center gap-2 text-sm text-emerald-400 mb-4">
+      <div class="md:col-span-4">
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center gap-2 text-xs text-emerald-400 mb-4">
             <a href="/docs" class="hover:underline">Docs</a>
-            <span class="text-white/50">/</span>
+            <span class="text-white/40">/</span>
             <a href={`/docs#${entry.data.category.toLowerCase().replace(/\s+/g, '-')}`} class="hover:underline">
               {entry.data.category}
             </a>
-            <span class="text-white/50">/</span>
-            <span class="text-white">{entry.data.title}</span>
+            <span class="text-white/40">/</span>
+            <span class="text-white/80">{entry.data.title}</span>
           </div>
           
-          <h1 class="text-4xl font-bold text-white mb-4">{entry.data.title}</h1>
+          <h1 class="text-2xl md:text-3xl font-bold text-white mb-4">{entry.data.title}</h1>
           
-          <div class="flex flex-wrap items-center gap-6 mb-6 text-sm">
-            <div class="flex items-center text-emerald-400">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-white/60">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-emerald-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               {formattedDate}
             </div>
             
             {formattedUpdateDate && (
-              <div class="flex items-center text-white/70">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5 text-emerald-400/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
                 Updated: {formattedUpdateDate}
@@ -153,8 +149,8 @@ const nextDoc = currentIndex < sidebarDocs.length - 1 ? sidebarDocs[currentIndex
             <div class="flex flex-wrap gap-2">
               {entry.data.tags.map((tag) => (
                 <span 
-                  class="px-3 py-1 rounded-full text-xs font-medium text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 transition-colors"
-                  style={{ backgroundColor: "rgba(16, 185, 129, 0.1)" }}
+                  class="px-2 py-0.5 rounded-full text-xs text-emerald-300"
+                  style={{ backgroundColor: "rgba(16, 185, 129, 0.05)" }}
                 >
                   #{tag}
                 </span>
@@ -164,78 +160,67 @@ const nextDoc = currentIndex < sidebarDocs.length - 1 ? sidebarDocs[currentIndex
         </div>
         
         {entry.data.heroImage && (
-          <div class="relative mb-10 rounded-xl overflow-hidden shadow-xl shadow-emerald-500/5 animate-fade-in">
+          <div class="relative mb-8 rounded-lg overflow-hidden shadow-sm animate-fade-in">
             <img
               src={entry.data.heroImage}
               alt={entry.data.title}
-              class="w-full h-64 object-cover"
+              class="w-full h-48 md:h-56 object-cover"
             />
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/70"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50"></div>
           </div>
         )}
         
         <div 
-          class="docs-content prose prose-lg md:prose-xl prose-invert prose-emerald max-w-none mx-auto p-8 rounded-xl glass-effect animate-fade-in hover-card"
-          style={{ 
-            backgroundColor: "rgba(24, 24, 24, 0.7)",
-            borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-            borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-          }}
+          class="docs-content prose prose-lg prose-invert prose-emerald max-w-none rounded-lg glass-effect animate-fade-in p-6"
         >
           <Content />
         </div>
         
         <!-- Navigation between docs -->
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
           {previousDoc && (
             <a 
               href={`/docs/${previousDoc.slug}`}
-              class="p-4 rounded-xl glass-effect backdrop-blur-md transition-all duration-300 hover:translate-x-[-5px] group"
-              style={{ 
-                backgroundColor: 'rgba(24, 24, 24, 0.7)',
-                borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-                borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-              }}
+              class="p-3 rounded-lg glass-effect transition-all duration-300 hover:translate-x-[-2px] group flex items-start"
             >
-              <div class="flex items-center text-emerald-400 mb-2">
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  class="h-5 w-5 mr-2 transition-transform duration-300 group-hover:translate-x-[-3px]" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-                Previous
+              <div class="mr-auto">
+                <div class="flex items-center text-emerald-400 mb-1 text-sm">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    class="h-4 w-4 mr-1 transition-transform duration-300 group-hover:translate-x-[-2px]" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  Previous
+                </div>
+                <p class="text-white/90 text-sm">{previousDoc.data.title}</p>
               </div>
-              <p class="text-white font-medium">{previousDoc.data.title}</p>
             </a>
           )}
           
           {nextDoc && (
             <a 
               href={`/docs/${nextDoc.slug}`}
-              class="p-4 rounded-xl glass-effect backdrop-blur-md transition-all duration-300 hover:translate-x-[5px] group md:ml-auto text-right"
-              style={{ 
-                backgroundColor: 'rgba(24, 24, 24, 0.7)',
-                borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
-                borderTop: '1px solid rgba(16, 185, 129, 0.1)',
-              }}
+              class="p-3 rounded-lg glass-effect transition-all duration-300 hover:translate-x-[2px] group flex md:ml-auto text-right items-start"
             >
-              <div class="flex items-center justify-end text-emerald-400 mb-2">
-                Next
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  class="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-[3px]" 
-                  fill="none" 
-                  viewBox="0 0 24 24" 
-                  stroke="currentColor"
-                >
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
+              <div class="ml-auto">
+                <div class="flex items-center justify-end text-emerald-400 mb-1 text-sm">
+                  Next
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    class="h-4 w-4 ml-1 transition-transform duration-300 group-hover:translate-x-[2px]" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+                <p class="text-white/90 text-sm">{nextDoc.data.title}</p>
               </div>
-              <p class="text-white font-medium">{nextDoc.data.title}</p>
             </a>
           )}
         </div>
@@ -243,131 +228,3 @@ const nextDoc = currentIndex < sidebarDocs.length - 1 ? sidebarDocs[currentIndex
     </div>
   </div>
 </Layout>
-
-<style>
-  /* Custom styles for docs content */
-  .docs-content {
-    max-width: 100%;
-  }
-  
-  .docs-content :global(h1) {
-    @apply text-3xl font-bold text-white mb-6 relative;
-    position: relative;
-  }
-  
-  .docs-content :global(h1)::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -8px;
-    width: 120px;
-    height: 3px;
-    background: linear-gradient(to right, var(--accent-500), transparent);
-    border-radius: 3px;
-  }
-  
-  .docs-content :global(h2) {
-    @apply text-2xl font-bold text-white mt-12 mb-6 relative;
-    position: relative;
-  }
-  
-  .docs-content :global(h2)::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 80px;
-    height: 2px;
-    background: linear-gradient(to right, var(--accent-500), transparent);
-    border-radius: 2px;
-  }
-  
-  .docs-content :global(h3) {
-    @apply text-xl font-bold text-white mt-8 mb-4 text-emerald-400;
-  }
-  
-  .docs-content :global(p) {
-    @apply text-white/90 mb-6 leading-relaxed text-lg;
-  }
-  
-  .docs-content :global(ul),
-  .docs-content :global(ol) {
-    @apply text-white/90 mb-6 pl-6 space-y-2;
-  }
-  
-  .docs-content :global(li) {
-    @apply mb-2 hover:text-emerald-300 transition-colors pb-1;
-    position: relative;
-  }
-  
-  .docs-content :global(li)::before {
-    content: '•';
-    @apply text-emerald-500 absolute -left-4;
-  }
-  
-  .docs-content :global(a) {
-    @apply text-emerald-400 hover:text-emerald-300 underline decoration-emerald-500/30 hover:decoration-emerald-500 underline-offset-2 transition-all duration-300 font-medium;
-  }
-  
-  .docs-content :global(blockquote) {
-    @apply border-l-4 border-emerald-500 pl-6 py-3 my-8 bg-emerald-500/5 rounded-r-lg italic relative;
-  }
-  
-  .docs-content :global(blockquote)::before {
-    content: '"';
-    @apply text-emerald-500/20 text-7xl absolute -top-5 -left-2 font-serif;
-  }
-  
-  .docs-content :global(code:not(pre code)) {
-    @apply bg-emerald-900/30 text-emerald-300 px-1.5 py-0.5 rounded text-sm border border-emerald-500/20;
-  }
-  
-  .docs-content :global(pre) {
-    @apply bg-gray-900 p-5 rounded-xl overflow-auto mb-6 border-l-4 border-emerald-500 shadow-lg shadow-black/20;
-  }
-  
-  .docs-content :global(pre code) {
-    @apply text-sm font-mono;
-  }
-  
-  .docs-content :global(img) {
-    @apply rounded-lg my-8 mx-auto transition-transform duration-300 hover:scale-[1.02] cursor-zoom-in shadow-xl max-w-full;
-  }
-  
-  .docs-content :global(hr) {
-    @apply border-0 h-px my-12 bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent;
-  }
-  
-  .docs-content :global(table) {
-    @apply w-full border-collapse my-8;
-  }
-  
-  .docs-content :global(th) {
-    @apply bg-gray-800 text-emerald-400 p-3 text-left font-semibold border-b border-emerald-500/20;
-  }
-  
-  .docs-content :global(td) {
-    @apply p-3 border-b border-gray-700;
-  }
-  
-  .docs-content :global(tr:hover td) {
-    @apply bg-emerald-500/5 transition-colors;
-  }
-
-  /* Additional styles for docs */
-  .docs-content :global(.note) {
-    @apply bg-blue-500/10 border-l-4 border-blue-500 p-4 rounded-r-lg my-6;
-  }
-
-  .docs-content :global(.warning) {
-    @apply bg-amber-500/10 border-l-4 border-amber-500 p-4 rounded-r-lg my-6;
-  }
-
-  .docs-content :global(.tip) {
-    @apply bg-emerald-500/10 border-l-4 border-emerald-500 p-4 rounded-r-lg my-6;
-  }
-  
-  .docs-content :global(.danger) {
-    @apply bg-red-500/10 border-l-4 border-red-500 p-4 rounded-r-lg my-6;
-  }
-</style>
