@@ -4,9 +4,10 @@ import { Home, Briefcase, Code, Mail } from 'lucide-react';
 const Navigation = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [currentPath, setCurrentPath] = useState('/');
+  const [currentPath, setCurrentPath] = useState(""); // Initialize with empty string
 
   useEffect(() => {
+    // Set the path only after component mounts on client
     setCurrentPath(window.location.pathname);
     
     const handleScroll = () => {

@@ -4,12 +4,15 @@ import { Terminal, Github, Linkedin, Mail } from 'lucide-react';
 const Home = () => {
   const [greeting, setGreeting] = useState("Hello");
   const [isHovered, setIsHovered] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
+  const [currentTime, setCurrentTime] = useState(""); // Initialize with empty string
 
   const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "こんにちは", "안녕하세요", "नमस्ते", "السلام عليكم"];
 
   // Update local time every second
   useEffect(() => {
+    // Set initial time immediately after component mounts on client
+    setCurrentTime(new Date().toLocaleTimeString());
+    
     const timer = setInterval(() => {
       setCurrentTime(new Date().toLocaleTimeString());
     }, 1000);
