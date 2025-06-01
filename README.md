@@ -2,13 +2,14 @@
 
 This is the source and deployment summary for my personal portfolio site [https://farhanahmed.pro](https://farhanahmed.pro), showcasing my work, experience, and projects.
 
-The website is built with **React + TypeScript + Vite**, hosted securely on **AWS S3 + CloudFront**, and integrated with **Cloudflare DNS** and **email routing**. It's designed for fast performance, low cost, and maximum control.
+The website is built with **React**, **TypeScript**, and **Vite**, hosted securely on **AWS S3 + CloudFront**, and integrated with **Cloudflare DNS** and **email routing**. It's designed for fast performance, low cost, and maximum control.
 
 ---
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React + TypeScript (built using Vite)
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS
 - **Hosting**: AWS S3 (private bucket)
 - **CDN**: AWS CloudFront
 - **SSL/TLS**: AWS ACM (via CloudFront)
