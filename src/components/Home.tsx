@@ -83,6 +83,30 @@ const Home = () => {
             </p>
           </div>
 
+          {/* Technology Icons */}
+          <div className="flex justify-center gap-6 mt-8">
+            <div className="flex flex-col items-center">
+              <img src="/images/icons/java.svg" alt="Java" className="w-12 h-12 mb-2 filter invert hover:text-emerald-500 transition-all hover:scale-110" />
+              <span className="text-xs text-white">Java</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <img src="/images/icons/spring.svg" alt="Spring Boot" className="w-12 h-12 mb-2 filter invert hover:text-emerald-500 transition-all hover:scale-110" />
+              <span className="text-xs text-white">Spring Boot</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <img src="/images/icons/aws.svg" alt="AWS" className="w-12 h-12 mb-2 filter invert hover:text-emerald-500 transition-all hover:scale-110" />
+              <span className="text-xs text-white">AWS</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <img src="/images/icons/docker.svg" alt="Docker" className="w-12 h-12 mb-2 filter invert hover:text-emerald-500 transition-all hover:scale-110" />
+              <span className="text-xs text-white">Docker</span>
+            </div>
+            <div className="flex flex-col items-center">
+              <img src="/images/icons/kubernetes.svg" alt="Kubernetes" className="w-12 h-12 mb-2 filter invert hover:text-emerald-500 transition-all hover:scale-110" />
+              <span className="text-xs text-white">Kubernetes</span>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-4 pt-8 justify-center">
             <a
               href="/projects"
