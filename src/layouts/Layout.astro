@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import BackgroundSettings from "../components/BackgroundSettings";
 import AudioControl from "../components/AudioControl";
+import { ViewTransitions } from "astro:transitions";
 import "../styles/global.css";
 
 interface Props {
@@ -26,6 +27,7 @@ const backgroundOption = "2";
     <meta name="description" content={description} />
     <meta name="theme-color" content="#10b981" />
     <title>{title}</title>
+    <ViewTransitions />
   </head>
   <body>
     <div class="min-h-screen text-white relative overflow-hidden" style="background-color: var(--light-black-950);">
@@ -53,15 +55,15 @@ const backgroundOption = "2";
     </div>
 
     <!-- Navigation at the bottom -->
-    <div class="fixed bottom-0 left-0 right-0 z-50">
+    <div class="fixed bottom-0 left-0 right-0 z-50" transition:persist>
       <Navigation client:load />
     </div>
 
     <!-- Background settings component -->
-    <BackgroundSettings currentBg={backgroundOption} client:load />
+    <BackgroundSettings currentBg={backgroundOption} client:load transition:persist />
     
     <!-- Audio control component -->
-    <AudioControl client:load />
+    <AudioControl client:load transition:persist />
 
     <script>
       // Scroll to top functionality

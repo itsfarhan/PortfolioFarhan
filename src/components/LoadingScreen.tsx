@@ -3,21 +3,6 @@ import { useState, useEffect } from 'react';
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [showName, setShowName] = useState(false);
-  const [audioPromptVisible, setAudioPromptVisible] = useState(true);
-
-  // Function to attempt playing the background music
-  const playBackgroundMusic = () => {
-    const audioElements = document.querySelectorAll('audio');
-    if (audioElements.length > 0) {
-      audioElements.forEach(audio => {
-        audio.muted = false;
-        audio.volume = 0.3;
-        audio.play().catch(() => {
-          console.log('Could not autoplay audio from loading screen');
-        });
-      });
-    }
-  };
 
   const handleSkip = () => {
     window.location.href = '/home';
@@ -43,23 +28,14 @@ const LoadingScreen = () => {
       }, 30); // Update progress every 30ms
     }, 13000); // 13 seconds
 
-    // Hide the audio prompt after 8 seconds
-    const hideAudioPromptTimer = setTimeout(() => {
-      setAudioPromptVisible(false);
-    }, 8000);
-
     return () => {
       if (interval) clearInterval(interval);
       clearTimeout(nameAndProgressTimer);
-      clearTimeout(hideAudioPromptTimer);
     };
   }, []);
 
   return (
-    <div
-      className="loading-screen"
-      onClick={playBackgroundMusic}
-    >
+    <div className="loading-screen">
       <video
         className="loading-video"
         autoPlay
@@ -69,11 +45,6 @@ const LoadingScreen = () => {
       >
         <source src="/videos/loading-animation.mp4" type="video/mp4" />
       </video>
-      {audioPromptVisible && (
-        <div className="audio-prompt">
-          <p className="text-lg">Click anywhere to enable audio</p>
-        </div>
-      )}
       <div className="loading-content">
         {showName && (
           <>
