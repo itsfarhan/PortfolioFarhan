@@ -55,16 +55,16 @@ const Home = () => {
 
             <div className="flex gap-2 justify-center mt-4">
               <a href="https://github.com/itsfarhan" target="_blank" rel="noopener noreferrer"
-                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
-                <Github className="w-5 h-5" />
+                className="text-white hover:text-emerald-500 transition-colors p-2.5 hover:bg-gray-800 hover:scale-110 rounded-full">
+                <Github className="w-6 h-6" />
               </a>
               <a href="https://linkedin.com/in/itsfarhan" target="_blank" rel="noopener noreferrer"
-                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
-                <Linkedin className="w-5 h-5" />
+                className="text-white hover:text-emerald-500 transition-colors p-2.5 hover:bg-gray-800 hover:scale-110 rounded-full">
+                <Linkedin className="w-6 h-6" />
               </a>
               <a href="mailto:hello@farhanahmed.pro"
-                className="text-white hover:text-emerald-500 transition-colors p-1.5 hover:bg-gray-800 rounded-full">
-                <Mail className="w-5 h-5" />
+                className="text-white hover:text-emerald-500 transition-colors p-2.5 hover:bg-gray-800 hover:scale-110 rounded-full">
+                <Mail className="w-6 h-6" />
               </a>
             </div>
             <div className="flex items-center justify-center gap-4 mt-4">
@@ -86,40 +86,16 @@ const Home = () => {
           <div className="flex flex-wrap gap-4 pt-8 justify-center">
             <a
               href="/projects"
-              className="px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+              className="px-8 py-3.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-600/20 flex items-center justify-center"
             >
               View Projects
             </a>
             <a
               href="/contact"
-              className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
+              className="px-8 py-3.5 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-gray-800/20 flex items-center justify-center"
             >
               Get In Touch
             </a>
-          </div>
-
-          {/* Technology Icons - Moved after the buttons and removed filter invert */}
-          <div className="flex justify-center gap-6 mt-8">
-            <div className="flex flex-col items-center">
-              <img src="/images/icons/java.svg" alt="Java" className="w-10 h-10 mb-2 hover:text-emerald-500 transition-all hover:scale-110" />
-              <span className="text-xs text-white">Java</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="/images/icons/spring.svg" alt="Spring Boot" className="w-10 h-10 mb-2 hover:text-emerald-500 transition-all hover:scale-110" />
-              <span className="text-xs text-white">Spring Boot</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="/images/icons/aws.svg" alt="AWS" className="w-10 h-10 mb-2 hover:text-emerald-500 transition-all hover:scale-110" />
-              <span className="text-xs text-white">AWS</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="/images/icons/docker.svg" alt="Docker" className="w-10 h-10 mb-2 hover:text-emerald-500 transition-all hover:scale-110" />
-              <span className="text-xs text-white">Docker</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <img src="/images/icons/kubernetes.svg" alt="Kubernetes" className="w-10 h-10 mb-2 hover:text-emerald-500 transition-all hover:scale-110" />
-              <span className="text-xs text-white">Kubernetes</span>
-            </div>
           </div>
         </section>
       </div>

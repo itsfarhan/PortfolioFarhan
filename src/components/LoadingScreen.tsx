@@ -46,12 +46,12 @@ const LoadingScreen = () => {
           return prev + 2;
         });
       }, 30); // Update progress every 30ms
-    }, 13000); // 13 seconds
+    }, 8000); // Reduced from 13 seconds to 8 seconds for better UX
 
-    // Hide the audio prompt after 8 seconds
+    // Hide the audio prompt after 5 seconds
     const hideAudioPromptTimer = setTimeout(() => {
       setAudioPromptVisible(false);
-    }, 8000);
+    }, 5000); // Reduced from 8 seconds to 5 seconds
 
     return () => {
       if (interval) clearInterval(interval);
@@ -88,9 +88,9 @@ const LoadingScreen = () => {
       <div className="loading-content">
         {showName && (
           <>
-            <h1 className="text-4xl font-bold text-emerald-500 mb-4 cinematic-title">FARHAN AHMED</h1>
-            <p className="text-xl text-white mb-4 cinematic-subtitle">Backend Dev | AWS Community Builder | Open Source Contributor</p>
-            <div className="loading-progress">
+            <h1 className="text-5xl font-bold text-emerald-500 mb-6 cinematic-title font-cinematic">FARHAN AHMED</h1>
+            <p className="text-xl text-white mb-8 cinematic-subtitle font-cinematic">BACKEND DEV • AWS COMMUNITY BUILDER • OPEN SOURCE</p>
+            <div className="loading-progress max-w-sm mx-auto">
               <div
                 className="loading-progress-bar"
                 style={{ width: `${progress}%` }}
@@ -100,10 +100,10 @@ const LoadingScreen = () => {
         )}
       </div>
       <button
-        className="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors z-50"
+        className="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-600/20 z-50"
         onClick={handleSkip}
       >
-        Skip
+        Skip Intro
       </button>
       <div className="scanlines"></div>
     </div>
