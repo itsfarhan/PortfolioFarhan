@@ -1,14 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [showName, setShowName] = useState(false);
+  const [audioPromptVisible, setAudioPromptVisible] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Function to attempt playing the background music
+  const playBackgroundMusic = () => {
+    if (audioRef.current) {
+      audioRef.current.volume = 0.3;
+      audioRef.current.play().then(() => {
+        setAudioPromptVisible(false);
+      }).catch(error => {
+        console.log('Could not autoplay audio from loading screen:', error);
+      });
+    }
+  };
 
   const handleSkip = () => {
     window.location.href = '/home';
   };
 
   useEffect(() => {
+    // Create audio element
+    const audioElement = new Audio('/audio/Vault-1.mp3');
+    audioElement.loop = true;
+    audioElement.volume = 0.3;
+    audioRef.current = audioElement;
+
     let interval: ReturnType<typeof setInterval> | null = null;
 
     // Show name and start progress bar at the 13th second
@@ -28,14 +48,29 @@ const LoadingScreen = () => {
       }, 30); // Update progress every 30ms
     }, 13000); // 13 seconds
 
+    // Hide the audio prompt after 8 seconds
+    const hideAudioPromptTimer = setTimeout(() => {
+      setAudioPromptVisible(false);
+    }, 8000);
+
     return () => {
       if (interval) clearInterval(interval);
       clearTimeout(nameAndProgressTimer);
+      clearTimeout(hideAudioPromptTimer);
+      
+      // Stop and clean up audio when component unmounts
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
+      }
     };
   }, []);
 
   return (
-    <div className="loading-screen">
+    <div
+      className="loading-screen"
+      onClick={playBackgroundMusic}
+    >
       <video
         className="loading-video"
         autoPlay
@@ -45,6 +80,11 @@ const LoadingScreen = () => {
       >
         <source src="/videos/loading-animation.mp4" type="video/mp4" />
       </video>
+      {audioPromptVisible && (
+        <div className="audio-prompt">
+          <p className="text-lg">Click anywhere to enable audio</p>
+        </div>
+      )}
       <div className="loading-content">
         {showName && (
           <>
