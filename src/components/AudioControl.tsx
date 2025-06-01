@@ -3,10 +3,14 @@ import { Volume2, VolumeX } from 'lucide-react';
 
 const AudioControl = () => {
   const [isMuted, setIsMuted] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Initialize audio
   useEffect(() => {
+    setIsLoaded(true);
+    
     // Now we're using the ref to access the audio element rendered in the JSX
     if (!audioRef.current) return;
     
@@ -89,8 +93,15 @@ const AudioControl = () => {
       />
       <button
         onClick={() => setIsMuted(!isMuted)}
-        className="fixed bottom-24 right-4 z-50 backdrop-blur-md p-2 rounded-full hover:text-emerald-500 transition-colors"
-        style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)', color: isMuted ? 'white' : '#10b981' }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`fixed bottom-24 right-4 z-50 backdrop-blur-md p-2.5 rounded-full transition-all duration-300 transform ${isHovered ? 'scale-110 shadow-glow-sm' : ''} ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}
+        style={{ 
+          backgroundColor: 'rgba(24, 24, 24, 0.8)', 
+          color: isMuted ? 'white' : '#10b981',
+          boxShadow: isHovered ? '0 0 10px rgba(16, 185, 129, 0.5)' : 'none',
+          border: '1px solid rgba(16, 185, 129, 0.1)'
+        }}
         aria-label={isMuted ? 'Unmute' : 'Mute'}
       >
         {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}

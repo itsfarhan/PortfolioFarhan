@@ -4,10 +4,19 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="Thank You - Farhan Ahmed">
   <div class="flex justify-center items-center min-h-[70vh]">
-    <div class="max-w-600px p-8 bg-[rgba(18,18,18,0.7)] rounded-lg shadow-lg backdrop-blur-lg border border-[rgba(255,255,255,0.1)]">
-      <h1 class="text-4xl font-bold text-emerald-500 mb-4 glitch-text" data-text="Thank You!">Thank You!</h1>
-      <p class="text-xl text-white mb-8">Your message has been received. I'll get back to you as soon as possible.</p>
-      <div class="text-gray-400 italic">Redirecting to home page in <span id="countdown">3</span> seconds...</div>
+    <div 
+      class="max-w-600px p-10 rounded-lg shadow-xl backdrop-blur-lg border animated-border glass-effect"
+      style={{
+        backgroundColor: 'rgba(18,18,18,0.7)',
+        borderLeft: '1px solid rgba(16, 185, 129, 0.1)',
+        borderTop: '1px solid rgba(16, 185, 129, 0.1)',
+      }}
+    >
+      <div class="animate-float">
+        <h1 class="text-5xl font-bold text-emerald-500 mb-6 glitch-text" data-text="Thank You!">Thank You!</h1>
+      </div>
+      <p class="text-xl text-white mb-8 animate-fade-in">Your message has been received. I'll get back to you as soon as possible.</p>
+      <div class="text-gray-400 italic animate-pulse-slow">Redirecting to home page in <span id="countdown" class="text-emerald-400 font-bold">3</span> seconds...</div>
     </div>
   </div>
 </Layout>
@@ -30,3 +39,32 @@ import Layout from "../layouts/Layout.astro";
     }
   }, 1000);
 </script>
+
+<style>
+  .animated-border {
+    position: relative;
+    z-index: 1;
+  }
+
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0.5rem;
+    padding: 2px;
+    background: linear-gradient(45deg, rgba(16, 185, 129, 0.8), rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.8));
+    background-size: 200% 200%;
+    animation: border-animation 4s ease infinite;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  @keyframes border-animation {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+  }
+</style>
