@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Home, Briefcase, Code, Mail } from 'lucide-react';
+import { Home, Briefcase, Code, Mail, BookOpen } from 'lucide-react';
 
 const Navigation = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -54,6 +54,16 @@ const Navigation = () => {
           >
             <Briefcase className="w-5 h-5" />
             <span className="text-xs">Projects</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="/blog"
+            className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
+            style={{ color: currentPath === '/blog' || currentPath.startsWith('/blog/') ? '#10b981' : 'white' }}
+          >
+            <BookOpen className="w-5 h-5" />
+            <span className="text-xs">Blog</span>
           </a>
         </li>
         <li>

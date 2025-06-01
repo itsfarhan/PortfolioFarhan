@@ -228,3 +228,37 @@
                 0 0 40px rgba(16, 185, 129, 0.3);
   }
 }
+
+/* Blog-specific styles */
+.blog-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1);
+}
+
+/* Code block styling */
+pre {
+  background-color: var(--light-black-900) !important;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border: 1px solid var(--light-black-700);
+}
+
+code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.9rem;
+  color: #10b981;
+}
+
+/* Inline code */
+:not(pre) > code {
+  background-color: var(--light-black-800);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  color: #10b981;
+}

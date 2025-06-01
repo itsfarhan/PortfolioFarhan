@@ -1,0 +1,133 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { format } from "date-fns";
+
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  const blogEntries = await getCollection("blog");
+  return blogEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+// Get the blog post for this page
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+// Format date
+const formattedDate = format(entry.data.pubDate, "MMMM d, yyyy");
+---
+
+<Layout title={`${entry.data.title} | Farhan Ahmed`}>
+  <article class="min-h-screen pb-32">
+    <div class="mb-10">
+      <a 
+        href="/blog" 
+        class="inline-flex items-center text-emerald-400 hover:text-emerald-500 mb-8"
+      >
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          class="h-5 w-5 mr-2" 
+          viewBox="0 0 20 20" 
+          fill="currentColor"
+        >
+          <path 
+            fill-rule="evenodd" 
+            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" 
+            clip-rule="evenodd"
+          />
+        </svg>
+        Back to Blog
+      </a>
+      
+      {entry.data.heroImage && (
+        <img
+          src={entry.data.heroImage}
+          alt={entry.data.title}
+          class="w-full h-72 object-cover rounded-xl mb-8"
+        />
+      )}
+      
+      <h1 class="text-4xl font-bold text-white mb-4">{entry.data.title}</h1>
+      
+      <div class="flex items-center gap-4 mb-8">
+        <p class="text-emerald-400">{formattedDate}</p>
+        <div class="flex flex-wrap gap-2">
+          {entry.data.tags.map((tag) => (
+            <span 
+              class="px-2 py-1 rounded text-xs text-emerald-400"
+              style={{ backgroundColor: "var(--light-black-700)" }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <div 
+      class="blog-content prose prose-lg prose-invert prose-emerald mx-auto p-8 rounded-lg glass-effect"
+      style={{ backgroundColor: "rgba(24, 24, 24, 0.7)" }}
+    >
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  /* Custom styles for blog content */
+  .blog-content {
+    max-width: 100%;
+  }
+  
+  .blog-content :global(h1) {
+    @apply text-3xl font-bold text-white mb-6;
+  }
+  
+  .blog-content :global(h2) {
+    @apply text-2xl font-bold text-white mt-8 mb-4;
+  }
+  
+  .blog-content :global(h3) {
+    @apply text-xl font-bold text-white mt-6 mb-3;
+  }
+  
+  .blog-content :global(p) {
+    @apply text-white mb-4 leading-relaxed;
+  }
+  
+  .blog-content :global(ul),
+  .blog-content :global(ol) {
+    @apply text-white mb-4 pl-5;
+  }
+  
+  .blog-content :global(li) {
+    @apply mb-2;
+  }
+  
+  .blog-content :global(a) {
+    @apply text-emerald-400 hover:text-emerald-300 underline;
+  }
+  
+  .blog-content :global(blockquote) {
+    @apply border-l-4 border-emerald-500 pl-4 italic text-gray-300 my-4;
+  }
+  
+  .blog-content :global(code:not(pre code)) {
+    @apply bg-gray-800 text-emerald-300 px-1 py-0.5 rounded text-sm;
+  }
+  
+  .blog-content :global(pre) {
+    @apply bg-gray-900 p-4 rounded-lg overflow-auto mb-4;
+  }
+  
+  .blog-content :global(img) {
+    @apply rounded-lg my-6 mx-auto;
+  }
+  
+  .blog-content :global(hr) {
+    @apply border-gray-700 my-8;
+  }
+</style>
