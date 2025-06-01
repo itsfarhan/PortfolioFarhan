@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Home, Briefcase, Code, Mail, BookOpen } from 'lucide-react';
+import { Home, Briefcase, Code, Mail, BookOpen, Award } from 'lucide-react';
 
 const Navigation = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -39,10 +39,7 @@ const Navigation = () => {
             className="hover:text-emerald-500 transition-colors flex flex-col items-center gap-1"
             style={{ color: currentPath === '/experience' ? '#10b981' : 'white' }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-            </svg>
+            <Award className="w-5 h-5" />
             <span className="text-xs">Experience</span>
           </a>
         </li>

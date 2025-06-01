@@ -81,7 +81,7 @@ const LoadingScreen = () => {
         <source src="/videos/loading-animation.mp4" type="video/mp4" />
       </video>
       {audioPromptVisible && (
-        <div className="audio-prompt">
+        <div className="audio-prompt font-cinematic">
           <p className="text-lg">Click anywhere to enable audio</p>
         </div>
       )}
