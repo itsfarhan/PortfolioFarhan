@@ -31,7 +31,7 @@ const Skills = () => {
 
   return (
     <div className="min-h-screen pb-32">
-      <h2 className="text-3xl font-bold text-white mb-12 text-center">Skills & Expertise</h2>
+      <h2 className="text-3xl font-bold text-white mb-12 text-center">Skills & Certifications</h2>
       <div className="space-y-12">
         {Object.entries(skillCategories).map(([category, skills]) => (
           <section key={category} className="space-y-6">
