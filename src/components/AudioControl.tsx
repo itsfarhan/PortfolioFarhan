@@ -7,19 +7,11 @@ const AudioControl = () => {
 
   // Initialize audio
   useEffect(() => {
-    // Create audio element in DOM to better handle autoplay
-    const audioElement = document.createElement('audio');
-    audioElement.src = '/audio/Vault-1.mp3';
-    audioElement.loop = true;
+    // Now we're using the ref to access the audio element rendered in the JSX
+    if (!audioRef.current) return;
+    
+    const audioElement = audioRef.current;
     audioElement.volume = 0.3;
-    audioElement.id = 'background-music';
-    audioElement.preload = 'auto';
-
-    // Store in ref for later control
-    audioRef.current = audioElement;
-
-    // Add to DOM for better browser support
-    document.body.appendChild(audioElement);
 
     // Try multiple play attempts
     const tryPlay = () => {
@@ -63,11 +55,6 @@ const AudioControl = () => {
       events.forEach(evt => {
         window.removeEventListener(evt, playOnUserAction);
       });
-
-      // Remove audio element from DOM
-      if (document.body.contains(audioElement)) {
-        document.body.removeChild(audioElement);
-      }
     };
   }, []);
 
@@ -91,14 +78,24 @@ const AudioControl = () => {
   }, [isMuted]);
 
   return (
-    <button
-      onClick={() => setIsMuted(!isMuted)}
-      className="fixed bottom-24 right-4 z-50 backdrop-blur-md p-2 rounded-full hover:text-emerald-500 transition-colors"
-      style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)', color: isMuted ? 'white' : '#10b981' }}
-      aria-label={isMuted ? 'Unmute' : 'Mute'}
-    >
-      {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
-    </button>
+    <>
+      <audio
+        ref={audioRef}
+        src="/audio/Vault-1.mp3"
+        loop
+        preload="auto"
+        id="background-music"
+        style={{ display: 'none' }}
+      />
+      <button
+        onClick={() => setIsMuted(!isMuted)}
+        className="fixed bottom-24 right-4 z-50 backdrop-blur-md p-2 rounded-full hover:text-emerald-500 transition-colors"
+        style={{ backgroundColor: 'rgba(24, 24, 24, 0.5)', color: isMuted ? 'white' : '#10b981' }}
+        aria-label={isMuted ? 'Unmute' : 'Mute'}
+      >
+        {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+      </button>
+    </>
   );
 };
 
