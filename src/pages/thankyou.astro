@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Thank You - Farhan Ahmed">
+  <div class="flex justify-center items-center min-h-[70vh]">
+    <div class="max-w-600px p-8 bg-[rgba(18,18,18,0.7)] rounded-lg shadow-lg backdrop-blur-lg border border-[rgba(255,255,255,0.1)]">
+      <h1 class="text-4xl font-bold text-emerald-500 mb-4 glitch-text" data-text="Thank You!">Thank You!</h1>
+      <p class="text-xl text-white mb-8">Your message has been received. I'll get back to you as soon as possible.</p>
+      <div class="text-gray-400 italic">Redirecting to home page in <span id="countdown">3</span> seconds...</div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Countdown timer
+  let secondsLeft = 3;
+  const countdownElement = document.getElementById('countdown');
+  
+  const countdownInterval = setInterval(() => {
+    secondsLeft--;
+    if (countdownElement) {
+      countdownElement.textContent = secondsLeft.toString();
+    }
+    
+    if (secondsLeft <= 0) {
+      clearInterval(countdownInterval);
+      // Redirect to home page
+      window.location.href = '/home';
+    }
+  }, 1000);
+</script>
