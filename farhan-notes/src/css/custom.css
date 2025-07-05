@@ -1,0 +1,155 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #19876f;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #2de0b8;
+  --ifm-color-primary-lightest: #3ef1cb;
+  --ifm-code-font-size: 97%;
+  --docusaurus-highlighted-code-line-bg: rgba(0,0,0,0.06);
+  --ifm-font-family-base: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --custom-footer-bg: #23272f;
+  --custom-hero-bg: linear-gradient(120deg, #23272f 0%, #222 100%);
+  --custom-border-radius: 7px;
+  --custom-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-darker: #1fa588;
+  --ifm-color-primary-darkest: #19876f;
+  --ifm-color-primary-light: #29d5b0;
+  --ifm-color-primary-lighter: #2de0b8;
+  --ifm-color-primary-lightest: #3ef1cb;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+.hero {
+  background: var(--custom-hero-bg) !important;
+  color: #fff;
+  padding: 3.2rem 0 2.2rem 0;
+  border-radius: 0 0 12px 12px;
+  box-shadow: none;
+  font-family: var(--ifm-font-family-base);
+  margin-bottom: 1.5rem;
+}
+
+
+.hero__title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.5rem;
+}
+
+
+.hero__subtitle {
+  font-size: 1.1rem;
+  font-weight: 400;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0.78;
+  font-family: inherit;
+}
+
+
+.button {
+  border-radius: var(--custom-border-radius);
+  padding: 10px 22px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  transition: all 0.18s cubic-bezier(.4,0,.2,1);
+  box-shadow: none;
+}
+
+.button:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+  box-shadow: var(--custom-shadow);
+  transform: translateY(-1px) scale(1.016);
+}
+
+.footer {
+  background: var(--custom-footer-bg) !important;
+  color: #fff !important;
+  border-top: #1fa588;
+  font-size: 0.9rem;
+  padding: 0.18rem 0 0.18rem 0;
+  display: contents;
+  align-items: center;
+  justify-content: center;
+  min-height: 20px;
+  box-shadow: #19876f;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 0rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.0rem;
+}
+
+.footer__link-item {
+  color: #fff !important;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+  font-size: 0.89rem;
+  padding: 0 0.22rem;
+  line-height: 1.1;
+  border-radius: 4px;
+}
+
+.footer__link-item:hover {
+  opacity: 1;
+  background: rgba(255,255,255,0.04);
+}
+
+.footer__copyright {
+  width: 100%;
+  text-align: center;
+  font-size: 0.74rem;
+  color: #bdbdbd;
+  margin: 0.03rem 0 0 0;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+
+
+.footer__link-item {
+  color: #fff !important;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.button--secondary {
+  background-color: transparent;
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+.button--secondary:hover {
+  background-color: var(--ifm-color-primary);
+  color: #fff;
+}
